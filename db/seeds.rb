@@ -13,5 +13,5 @@
       price: 1000.to_i,
       evaluation: 3.to_i
       )
-    product.image.attach(io: File.open('/myapp/app/assets/images/product/product01.jpg'), filename: 'product01.jpg', content_type: 'image/jpeg')
+    product.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'product', 'product01.jpg')), filename: 'product01.jpg', content_type: 'image/jpeg')
   end
