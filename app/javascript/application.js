@@ -2,4 +2,4 @@
 import '@hotwired/turbo-rails';
 import './controllers';
 import 'bootstrap';
-import 'template/bootstrap.bundle.min';
+import './template/bootstrap.bundle.min';
