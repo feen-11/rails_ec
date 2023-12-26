@@ -13,5 +13,5 @@
       price: 1000.to_i,
       evaluation: 3.to_i
       )
-    product.image.attach(io: URI.open("https://taichishiozawa-rails-ec.s3.ap-northeast-1.amazonaws.com/product01.jpg"), filename: 'product01.jpg', content_type: 'image/jpeg')
+    product.image.attach(io: URI.open('https://taichishiozawa-rails-ec.s3.ap-northeast-1.amazonaws.com/product01.jpg'), filename: 'product01.jpg', content_type: 'image/jpeg')
   end
