@@ -7,11 +7,11 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-  (1..10).each do |i|
-    product = Product.create!(
-      name: "商品#{i}",
-      price: 1000.to_i,
-      evaluation: 3.to_i
-      )
-    product.image.attach(io: URI.open('https://taichishiozawa-rails-ec.s3.ap-northeast-1.amazonaws.com/product01.jpg'), filename: 'product01.jpg', content_type: 'image/jpeg')
-  end
+(1..10).each do |i|
+  product = Product.create!(
+    name: "商品#{i}",
+    price: 1000.to_i,
+    evaluation: 3.to_i
+    )
+  product.image.attach(io: URI.open('https://taichishiozawa-rails-ec.s3.ap-northeast-1.amazonaws.com/product01.jpg'), filename: 'product01.jpg', content_type: 'image/jpeg')
+end

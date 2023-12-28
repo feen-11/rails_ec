@@ -6,8 +6,4 @@ class ProductsController < ApplicationController
     @products = Product.all
   end
 
-  # Only allow a list of trusted parameters through.
-  def product_params
-    params.require(:task).permit(:title, :description, :status)
-  end
 end
