@@ -1,9 +1,9 @@
 name: '【Docker】Ruby on Rails CI'
 on:
   push:
-    branches: ['main']
+    branches: ['*']
   pull_request:
-    branches: ['main']
+    branches: ['*']
 jobs:
   run-htmlbeautifier:
     name: Run htmlbeautifier
@@ -19,7 +19,6 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: run htmlbeautifier on docker-compose
         run: |
-          echo ${{ secrets.S3_BUCKET }}
           docker-compose build
           docker-compose run --rm web bin/setup
           docker-compose run --rm web bin/htmlbeautifier
