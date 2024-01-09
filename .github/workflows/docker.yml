@@ -1,9 +1,9 @@
 name: '【Docker】Ruby on Rails CI'
 on:
   push:
-    branches: ['*']
+    branches: ['main']
   pull_request:
-    branches: ['*']
+    branches: ['main']
 jobs:
   run-htmlbeautifier:
     name: Run htmlbeautifier
