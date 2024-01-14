@@ -10,7 +10,9 @@
   </head>
   <body>
     <%# nav %>
-      <%= render partial: 'layouts/nav', locals: { products: @products} %>
+    <%= render partial: 'layouts/nav' %>
     <%= yield %>
+    <%# footer %>
+    <%= render partial: 'layouts/footer' %>
   </body>
 </html>
