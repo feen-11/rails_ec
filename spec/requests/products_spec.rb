@@ -14,7 +14,7 @@ require 'rails_helper'
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe '/tasks', type: :request do
+RSpec.describe '/products', type: :request do
   # This should return the minimal set of attributes required to create a valid
   # Task. As you add validations to Task, be sure to
   # adjust the attributes here as well.
@@ -29,7 +29,7 @@ RSpec.describe '/tasks', type: :request do
   describe 'GET /index' do
     it 'renders a successful response' do
       Task.create! valid_attributes
-      get tasks_url
+      get tproducts_url
       expect(response).to be_successful
     end
   end
@@ -61,12 +61,12 @@ RSpec.describe '/tasks', type: :request do
     context 'with valid parameters' do
       it 'creates a new Task' do
         expect do
-          post tasks_url, params: { task: valid_attributes }
+          post products_url, params: { task: valid_attributes }
         end.to change(Task, :count).by(1)
       end
 
       it 'redirects to the created task' do
-        post tasks_url, params: { task: valid_attributes }
+        post products_url, params: { task: valid_attributes }
         expect(response).to redirect_to(task_url(Task.last))
       end
     end
@@ -74,12 +74,12 @@ RSpec.describe '/tasks', type: :request do
     context 'with invalid parameters' do
       it 'does not create a new Task' do
         expect do
-          post tasks_url, params: { task: invalid_attributes }
+          post products_url, params: { task: invalid_attributes }
         end.to change(Task, :count).by(0)
       end
 
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
-        post tasks_url, params: { task: invalid_attributes }
+        post products_url, params: { task: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
@@ -123,10 +123,10 @@ RSpec.describe '/tasks', type: :request do
       end.to change(Task, :count).by(-1)
     end
 
-    it 'redirects to the tasks list' do
+    it 'redirects to the products list' do
       task = Task.create! valid_attributes
       delete task_url(task)
-      expect(response).to redirect_to(tasks_url)
+      expect(response).to redirect_to(products_url)
     end
   end
 end
