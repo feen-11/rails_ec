@@ -9,5 +9,4 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
     @related_products = Product.order(created_at: :desc).limit(4)
   end
-  
 end

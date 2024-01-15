@@ -1,6 +1,10 @@
+# frozen_string_literal: true
+
 class AddDescriptionToProducts < ActiveRecord::Migration[7.0]
   def change
-    add_column :products, :description, :text
-    add_column :products, :code, :string
+    change_table :products, bulk: true do |t|
+      t.text :description
+      t.string :code
+    end
   end
 end
