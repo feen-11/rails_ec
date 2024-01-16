@@ -7,6 +7,6 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
-    @related_products = Product.order(created_at: :desc).limit(4)
+    @related_products = Product.where.not(id: @product.id).order(created_at: :desc).limit(4)
   end
 end
