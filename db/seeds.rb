@@ -12,7 +12,9 @@
   product = Product.create!(
     name: "商品#{i}",
     price: 1000.to_i,
-    evaluation: 3.to_i
+    evaluation: 3.to_i,
+    description: '新鮮な卵とふんわり焼き上げたトースト。絶妙な組み合わせが楽しめるスクランブルエッグとトーストのハーモニー。朝の活力をお届けします。',
+    code: "DISH#{i}"
   )
   product.image.attach(io: File.open(Rails.root.join('app/assets/images/product/product01.jpg')),
                        filename: 'product01.jpg')
