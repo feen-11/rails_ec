@@ -2,10 +2,7 @@
 
 Rails.application.routes.draw do
   namespace :admin do
-    get 'products/new'
-    get 'products/create'
-    get 'products/edit'
-    get 'products/delete'
+    resources :products
     resources :users
   end
   resources :products
