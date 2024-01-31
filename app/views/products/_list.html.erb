@@ -21,7 +21,12 @@
       <!-- Product actions-->
       <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
         <div class="text-center">
-          <%= link_to '詳細', product, class: 'btn btn-outline-dark mt-auto' %>
+          <% if request.path_info == '/' %>
+            <%= link_to '詳細', product, class: 'btn btn-outline-dark mt-auto' %>
+          <% end %>
+          <% if request.path_info == '/admin/products' %>
+            <%= link_to '編集', product, class: 'btn btn-outline-dark mt-auto' %>
+          <% end %>
           <% if request.path_info == '/admin/products' %>
             <%= link_to '削除', product, class: 'btn btn-outline-dark mt-auto' %>
           <% end %>
