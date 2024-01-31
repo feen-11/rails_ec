@@ -11,6 +11,11 @@
   <body>
     <%# nav %>
     <%= render 'layouts/nav' %>
+    <% if flash.notice.present? %>
+      <div class="alert alert-primary" role="alert">
+        <%= flash.notice %>
+      </div>
+    <% end %>
     <%= yield %>
     <%# footer %>
     <%= render 'layouts/footer' %>

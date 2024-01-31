@@ -25,10 +25,10 @@
             <%= link_to '詳細', product, class: 'btn btn-outline-dark mt-auto' %>
           <% end %>
           <% if request.path_info == '/admin/products' %>
-            <%= link_to '編集', product, class: 'btn btn-outline-dark mt-auto' %>
+            <%= link_to '編集', edit_admin_product_path(product), class: 'btn btn-outline-dark mt-auto' %>
           <% end %>
           <% if request.path_info == '/admin/products' %>
-            <%= link_to '削除', product, class: 'btn btn-outline-dark mt-auto' %>
+            <%= link_to '削除', admin_product_path(product), data: { turbo_method: :delete, turbo_confirm: '削除しますか？' }, class: 'btn btn-outline-dark mt-auto' %>
           <% end %>
         </div>
       </div>

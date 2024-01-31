@@ -12,6 +12,9 @@ class Admin::ProductsController < ApplicationController
   def edit
   end
 
-  def delete
+  def destroy
+    product = Product.find(params[:id])
+    product.destroy
+    redirect_to admin_products_path, notice: "#{product.name}を削除しました", status: :see_other
   end
 end
