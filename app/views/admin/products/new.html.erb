@@ -1,2 +1,26 @@
-<h1>Admin::Products#new</h1>
-<p>Find me in app/views/admin/products/new.html.erb</p>
+<header class="bg-primary py-5">
+  <div class="container px-4 px-lg-5 my-5">
+    <div class="text-center text-white">
+      <h1 class="display-4 fw-bolder">商品追加</h1>
+      <p class="lead fw-normal text-white-50 mb-0">管理画面</p>
+    </div>
+  </div>
+</header>
+<section class="py-5 container">
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">商品名</label>
+    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="商品名を入力してください">
+  </div>
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label" type="number">価格</label>
+    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="商品の価格を半角数字で入力してください">
+  </div>
+  <div class="mb-3">
+    <label for="formFile" class="form-label">商品画像</label>
+    <input class="form-control" type="file" id="formFile">
+  </div>
+  <div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">説明</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="商品の説明を入力してください"></textarea>
+  </div>
+</section>
