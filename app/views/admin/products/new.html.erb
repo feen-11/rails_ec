@@ -7,20 +7,27 @@
   </div>
 </header>
 <section class="py-5 container">
+  <%= form_with mode: @product url: admin_products_path, mothod: :post do | form | %>
   <div class="mb-3">
-    <label for="exampleFormControlInput1" class="form-label">商品名</label>
-    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="商品名を入力してください">
+    <%= form.label :name, "商品名", class: 'form-label' %>
+    <%= form.text_field :name, class: 'form-control', placeholder: '商品名を入力してください' %>
   </div>
   <div class="mb-3">
-    <label for="exampleFormControlInput1" class="form-label" type="number">価格</label>
-    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="商品の価格を半角数字で入力してください">
+    <%= form.label :price, "価格", class: 'form-label' %>
+    <%= form.number_field :price, class: 'form-control', placeholder: '価格を半角数字で入力してください' %>
   </div>
   <div class="mb-3">
-    <label for="formFile" class="form-label">商品画像</label>
-    <input class="form-control" type="file" id="formFile">
+    <%= form.label :evaluation, "評価", class: 'form-label' %>
+    <%= form.number_field :evaluation, class: 'form-control', placeholder: '評価を1〜5の整数で入力してください' %>
   </div>
   <div class="mb-3">
-    <label for="exampleFormControlTextarea1" class="form-label">説明</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="商品の説明を入力してください"></textarea>
+    <%= form.label :image, "画像", class: 'form-label' %>
+    <%= file_field_tag :image, class: 'form-control' %>
   </div>
+  <div class="mb-3">
+    <%= form.label :description, "説明", class: 'form-label' %>
+    <%= form.text_area :description, class: 'form-control', placeholder: '説明を入力してください' %>
+  </div>
+  <%= form.submit '追加', class: 'btn btn-outline-dark' %>
+  <% end %>
 </section>
