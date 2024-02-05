@@ -49,7 +49,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_23_120236) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "description"
-    t.string "code"
   end
 
   create_table "users", force: :cascade do |t|

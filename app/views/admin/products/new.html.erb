@@ -7,7 +7,7 @@
   </div>
 </header>
 <section class="py-5 container">
-  <%= form_with model: @product url: admin_products_path, mothod: :post do | form | %>
+  <%= form_with model: @product, url: admin_products_path, data: { turbo_method: :post }, multipart: true, local: true do | form | %>
   <div class="mb-3">
     <%= form.label :name, "商品名", class: 'form-label' %>
     <%= form.text_field :name, class: 'form-control', placeholder: '商品名を入力してください' %>
@@ -22,7 +22,7 @@
   </div>
   <div class="mb-3">
     <%= form.label :image, "画像", class: 'form-label' %>
-    <%= file_field_tag :image, class: 'form-control' %>
+    <%= form.file_field :image, class: 'form-control' %>
   </div>
   <div class="mb-3">
     <%= form.label :description, "説明", class: 'form-label' %>
