@@ -16,6 +16,8 @@ class Admin::ProductsController < ApplicationController
     if @product.save
       # 保存に成功した場合の処理
       redirect_to admin_products_path, notice: '商品を追加しました'
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 

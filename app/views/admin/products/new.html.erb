@@ -7,6 +7,15 @@
   </div>
 </header>
 <section class="py-5 container">
+<% if @product.errors.any? %>
+<div class="alert alert-danger">
+  <ul>
+    <% @product.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
   <%= form_with model: @product, url: admin_products_path, data: { turbo_method: :post }, multipart: true, local: true do | form | %>
   <div class="mb-3">
     <%= form.label :name, "商品名", class: 'form-label' %>
