@@ -22,6 +22,18 @@ class Admin::ProductsController < ApplicationController
   end
 
   def edit
+    @product = Product.find(params[:id])
+  end
+
+  def update
+    @product = Product.find(params[:id])
+    
+    if @product.update(product_params)
+      # 保存に成功した場合の処理
+      redirect_to admin_products_path, notice: "#{@product.name}を更新しました"
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
