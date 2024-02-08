@@ -1,0 +1,78 @@
+<div class="mb-3">
+  <%= form.label :name, "商品名", class: 'form-label' %>
+  <%= form.text_field :name, class: 'form-control', placeholder: '商品名を入力してください' %>
+  <% if product.errors.include?(:name) %>
+    <div class="alert alert-danger mt-3">
+      <ul class="mb-0">
+        <% product.errors.full_messages_for(:name).each do |message|  %>
+            <li>
+              <%= message %>
+            </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+</div>
+<div class="mb-3">
+  <%= form.label :price, "価格", class: 'form-label' %>
+  <%= form.number_field :price, class: 'form-control', placeholder: '価格を半角数字で入力してください' %>
+  <% if product.errors.include?(:price) %>
+    <div class="alert alert-danger mt-3">
+      <ul class="mb-0">
+        <% product.errors.full_messages_for(:price).each do |message|  %>
+            <li>
+              <%= message %>
+            </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+</div>
+<div class="mb-3">
+  <%= form.label :evaluation, "評価", class: 'form-label' %>
+  <%= form.number_field :evaluation, class: 'form-control', placeholder: '評価を1〜5の整数で入力してください' %>
+  <% if product.errors.include?(:evaluation) %>
+    <div class="alert alert-danger mt-3">
+      <ul class="mb-0">
+        <% product.errors.full_messages_for(:evaluation).each do |message|  %>
+            <li>
+              <%= message %>
+            </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+</div>
+<div class="mb-3">
+  <%= form.label :image, "画像", class: 'form-label' %>
+  <%= form.file_field :image, class: 'form-control' %>
+  <% if controller_name == 'products' && action_name == 'edit' && params[:id].present? %>
+    <%= image_tag product.image, class: 'existing-product-image mt-3', width: '300'  %>
+  <% end %>
+  <% if product.errors.include?(:image) %>
+    <div class="alert alert-danger mt-3">
+      <ul class="mb-0">
+        <% product.errors.full_messages_for(:image).each do |message|  %>
+            <li>
+              <%= message %>
+            </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+</div>
+<div class="mb-3">
+  <%= form.label :description, "説明", class: 'form-label' %>
+  <%= form.text_area :description, class: 'form-control', placeholder: '説明を入力してください' %>
+    <% if product.errors.include?(:description) %>
+      <div class="alert alert-danger mt-3">
+        <ul class="mb-0">
+          <% product.errors.full_messages_for(:description).each do |message|  %>
+              <li>
+                <%= message %>
+              </li>
+          <% end %>
+        </ul>
+      </div>
+  <% end %>
+</div>
