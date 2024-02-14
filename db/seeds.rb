@@ -17,3 +17,10 @@
   )
   product.image.attach(io: File.open(Rails.root.join('app/assets/images/product/product01.jpg')), filename: 'product01.jpg')
 end
+
+user = User.create!(
+  name: 'admin',
+  email: 'admin@sample.com',
+  password: 'pw',
+  admin: true
+)
