@@ -8,7 +8,7 @@
 </header>
 <section class="py-5 container">
   <%= form_with model: @product, url: admin_product_path(@product), multipart: true do | form | %>
-  <%= render partial: '/admin/products/form', locals: { product: @product, form: form} %>
-  <%= form.submit '更新', class: 'btn btn-outline-dark' %>
+    <%= render partial: '/admin/products/form', locals: { product: @product, form: form} %>
+    <%= form.submit '更新', class: 'btn btn-outline-dark' %>
   <% end %>
 </section>
