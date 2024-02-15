@@ -18,17 +18,13 @@
         </li>
       </ul>
       <div class="d-flex gap-3">
-        <% if request.path_info.start_with?('/admin') %>
-            <%= link_to '管理トップ', admin_products_path, class: 'nav-link', class: 'btn btn-outline-dark mr-3' %>
-        <% end %>
-        <% if request.path_info.start_with?('/admin') %>
-            <%= link_to '新規追加', new_admin_product_path, class: 'nav-link', class: 'btn btn-outline-dark mr-3' %>
-        <% end %>
         <% if current_user %>
-          <%= session[:user_id] %>
+          <%= link_to '管理トップ', admin_products_path, class: 'nav-link', class: 'btn btn-outline-dark mr-3' %>
+          <%= link_to '新規追加', new_admin_product_path, class: 'nav-link', class: 'btn btn-outline-dark mr-3' %>
+          <%= link_to 'ログアウト', logout_path, data: { turbo_method: :delete, turbo_confirm: 'ログアウトしますか？' }, class: 'nav-link', class: 'btn btn-outline-dark mr-3' %>
+        <% else %>
+          <%= link_to 'ログイン', login_path, class: 'nav-link', class: 'btn btn-outline-dark mr-3' %>
         <% end %>
-        <%= link_to 'ログイン', login_path, class: 'nav-link', class: 'btn btn-outline-dark mr-3' %>
-        <%= link_to 'ログアウト', logout_path, data: { turbo_method: :delete, turbo_confirm: '削除しますか？' }, class: 'nav-link', class: 'btn btn-outline-dark mr-3' %>
         <form>
           <button class="btn btn-outline-dark" type="submit">
             <i class="bi-cart-fill me-1"></i>
