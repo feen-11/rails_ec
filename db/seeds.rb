@@ -15,7 +15,8 @@
     evaluation: 3,
     description: '商品の説明...'
   )
-  product.image.attach(io: File.open(Rails.root.join('app/assets/images/product/product01.jpg')), filename: 'product01.jpg')
+  product.image.attach(io: File.open(Rails.root.join('app/assets/images/product/product01.jpg')),
+                       filename: 'product01.jpg')
   product.save!
 end
 
