@@ -1,4 +1,7 @@
 class Admin::ProductsController < ApplicationController
+
+  before_action :login_required
+
   def index
     @products = Product.all.order(:id)
 
@@ -47,6 +50,10 @@ class Admin::ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(:name, :price, :evaluation, :image, :description)
+  end
+
+  def login_required
+    redirect_to login_path unless current_user
   end
 
 end
