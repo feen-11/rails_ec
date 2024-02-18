@@ -2,6 +2,7 @@
 
 module Admin
   class ProductsController < ApplicationController
+    before_action :basic_auth
     before_action :load_product, only: [:show, :edit, :update, :destroy]
 
     def index
@@ -50,6 +51,12 @@ module Admin
 
     def load_product
       @product = Product.find(params[:id])
+    end
+
+    def basic_auth
+      authenticate_or_request_with_http_basic do |name, password|
+        name == ENV['BASIC_AUTH_NAME'] && password == ENV['BASIC_AUTH_PASSWORD']
+      end
     end
 
   end
