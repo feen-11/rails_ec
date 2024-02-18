@@ -3,13 +3,13 @@
 module Admin
   class ProductsController < ApplicationController
     before_action :login_required
+    before_action :load_product, only: [:show, :edit, :update, :destroy]
 
     def index
       @products = Product.all.order(:id)
     end
 
     def show
-      @product = Product.find(params[:id])
     end
 
     def new
@@ -27,12 +27,9 @@ module Admin
     end
 
     def edit
-      @product = Product.find(params[:id])
     end
 
     def update
-      @product = Product.find(params[:id])
-
       if @product.update(product_params)
         # 保存に成功した場合の処理
         redirect_to admin_products_path, notice: "#{@product.name}を更新しました"
@@ -42,15 +39,18 @@ module Admin
     end
 
     def destroy
-      product = Product.find(params[:id])
-      product.destroy
-      redirect_to admin_products_path, notice: "#{product.name}を削除しました", status: :see_other
+      @product.destroy
+      redirect_to admin_products_path, notice: "#{@product.name}を削除しました", status: :see_other
     end
 
     private
 
     def product_params
       params.require(:product).permit(:name, :price, :evaluation, :image, :description)
+    end
+
+    def load_product
+      @product = Product.find(params[:id])
     end
 
     def login_required
