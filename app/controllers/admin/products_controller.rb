@@ -2,7 +2,6 @@
 
 module Admin
   class ProductsController < ApplicationController
-    before_action :login_required
     before_action :load_product, only: [:show, :edit, :update, :destroy]
 
     def index
@@ -53,8 +52,5 @@ module Admin
       @product = Product.find(params[:id])
     end
 
-    def login_required
-      redirect_to login_path unless current_user
-    end
   end
 end
