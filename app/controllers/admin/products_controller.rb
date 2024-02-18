@@ -3,14 +3,13 @@
 module Admin
   class ProductsController < ApplicationController
     before_action :basic_auth
-    before_action :load_product, only: [:show, :edit, :update, :destroy]
+    before_action :load_product, only: %i[show edit update destroy]
 
     def index
       @products = Product.all.order(:id)
     end
 
-    def show
-    end
+    def show; end
 
     def new
       @product = Product.new
@@ -26,8 +25,7 @@ module Admin
       end
     end
 
-    def edit
-    end
+    def edit; end
 
     def update
       if @product.update(product_params)
@@ -58,6 +56,5 @@ module Admin
         name == ENV['BASIC_AUTH_NAME'] && password == ENV['BASIC_AUTH_PASSWORD']
       end
     end
-
   end
 end
