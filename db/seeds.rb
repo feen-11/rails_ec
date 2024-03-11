@@ -20,10 +20,3 @@
   product.save!
 end
 
-user = User.new(
-  name: 'admin',
-  email: 'admin@sample.com',
-  password: 'pw',
-  admin: true
-)
-user.save!

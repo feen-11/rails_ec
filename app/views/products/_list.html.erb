@@ -23,6 +23,8 @@
         <div class="text-center">
           <% if request.path_info == '/' %>
             <%= link_to '詳細', product, class: 'btn btn-outline-dark mt-auto' %>
+            <%# 0306 404エラーのため要修正。ルーティングを見直す必要？ cart_products/:id(:format)の形にしたい %>
+            <%= button_to 'カートに入れる', cart_products_path, data: { "turbo-method": :post }, params:{ cart_product: { product_id: product.id } }, class: 'btn btn-outline-dark mt-auto' %>
           <% end %>
           <% if request.path_info.start_with?('/admin') %>
             <%= link_to '詳細', admin_product_path(product), class: 'btn btn-outline-dark mt-auto' %>
