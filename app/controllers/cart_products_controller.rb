@@ -35,7 +35,14 @@ class CartProductsController < ApplicationController
   end
 
   def update
-    @cart_product.update(quantity: cart_product_create_params[:quantity])
+    price = @cart_product.product.price * cart_product_update_params[:quantity].to_i
+    if price < 1
+      @cart_product.destroy
+      redirect_to cart_products_path, notice: '商品をカートから削除しました。'
+    else
+      @cart_product.update(quantity: cart_product_update_params[:quantity], price: price)
+      redirect_to cart_products_path, notice: '数量を更新しました。'
+    end
   end
 
   def destroy

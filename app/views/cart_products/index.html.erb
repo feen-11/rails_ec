@@ -20,8 +20,12 @@
           <li class="list-group-item d-flex justify-content-between lh-sm">
             <div>
               <h6 class="my-0"><%= cart_product.product.name %></h6>
+                <%= form_with model: @cart_product, url: cart_product_path(cart_product), method: :patch do | form | %>
+                  <%= form.number_field :quantity, class: 'form-control text-center me-3', value: cart_product.quantity %>
+                  <%= form.submit '更新', class: 'btn btn-outline-dark flex-shrink-0' %>
+                <% end %>
               <small class="text-body-secondary">数量：<%= cart_product.quantity %></small>
-              <%= link_to '削除', cart_product_path(cart_product), data: { turbo_method: :delete, turbo_confirm: '削除しますか？' }, class: 'btn btn-outline-dark mt-auto' %>
+              <%= link_to '削除', cart_product_path(cart_product), data: { turbo_method: :delete, turbo_confirm: '削除しますか？' }, class: '' %>
             </div>
             <span class="text-body-secondary"><%= cart_product.price %>円</span>
           </li>
