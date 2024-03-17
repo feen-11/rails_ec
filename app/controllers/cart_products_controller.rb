@@ -1,13 +1,20 @@
 class CartProductsController < ApplicationController
 
   before_action :set_cart
+  before_action :load_cart_product, only: %i[update destroy]
+
+  def index
+    @cart_products = CartProduct.where(cart_id: @cart.id).order(product_id: :asc)
+    @total_quantity = @cart_products.sum(:quantity)
+    @total_price = @cart_products.sum(:price)
+  end
 
   def create
-    product = Product.find(cart_product_params[:product_id])
-    quantity = cart_product_params[:quantity].present? ? cart_product_params[:quantity].to_i : 1
+    product = Product.find(cart_product_create_params[:product_id])
+    quantity = cart_product_create_params[:quantity].present? ? cart_product_create_params[:quantity].to_i : 1
     price = product.price * quantity
 
-    existing_cart_product = CartProduct.find_by(cart_id: @cart.id, product_id: cart_product_params[:product_id])
+    existing_cart_product = CartProduct.find_by(cart_id: @cart.id, product_id: cart_product_create_params[:product_id])
 
     if existing_cart_product
       existing_cart_product.quantity += quantity
@@ -18,7 +25,7 @@ class CartProductsController < ApplicationController
         redirect_to root_path, notice: 'カート内の商品の数量を更新できませんでした。'
       end
     else
-      @cart_product = CartProduct.new(cart_id: @cart.id, product_id: cart_product_params[:product_id], quantity: quantity, price: price)
+      @cart_product = CartProduct.new(cart_id: @cart.id, product_id: cart_product_create_params[:product_id], quantity: quantity, price: price)
       if @cart_product.save
         redirect_to root_path, notice: '商品をカートに追加しました'
       else
@@ -28,15 +35,26 @@ class CartProductsController < ApplicationController
   end
 
   def update
+    @cart_product.update(quantity: cart_product_create_params[:quantity])
   end
 
   def destroy
+    @cart_product.destroy
+    redirect_to cart_products_path, notice: '商品をカートから削除しました。'
   end
 
   private
 
-  def cart_product_params
+  def cart_product_create_params
     params.permit(:product_id, :quantity)
+  end
+
+  def cart_product_update_params
+    params.permit(:quantity)
+  end
+
+  def load_cart_product
+    @cart_product = CartProduct.find(params[:id])
   end
 
   def set_cart

@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     resources :products
   end
   resources :products do
-    resources :cart_products, only: %i[create destroy update]
+    resources :cart_products, only: :create
   end
-  resources :carts, only: %i[index]
+  resources :cart_products, only: %i[index update destroy]
 end

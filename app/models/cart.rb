@@ -1,3 +1,3 @@
 class Cart < ApplicationRecord
-  has_many :cart_product
+  has_many :cart_products
 end

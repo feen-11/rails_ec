@@ -10,49 +10,42 @@
       <div class="col-md-5 col-lg-4 order-md-last">
         <h4 class="d-flex justify-content-between align-items-center mb-3">
           <span class="text-primary">買い物かご</span>
-          <span class="badge bg-primary rounded-pill">3</span>
+          <span class="badge bg-primary rounded-pill"><%= @total_quantity %></span>
         </h4>
         <ul class="list-group mb-3">
+          <% if@cart_products.empty? %>
+            <p>カートに何も入っていません</p>
+          <% else %>
+          <% @cart_products.each do |cart_product| %>
           <li class="list-group-item d-flex justify-content-between lh-sm">
             <div>
-              <h6 class="my-0">Product name</h6>
-              <small class="text-body-secondary">Brief description</small>
+              <h6 class="my-0"><%= cart_product.product.name %></h6>
+              <small class="text-body-secondary">数量：<%= cart_product.quantity %></small>
+              <%= link_to '削除', cart_product_path(cart_product), data: { turbo_method: :delete, turbo_confirm: '削除しますか？' }, class: 'btn btn-outline-dark mt-auto' %>
             </div>
-            <span class="text-body-secondary">$12</span>
+            <span class="text-body-secondary"><%= cart_product.price %>円</span>
           </li>
-          <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div>
-              <h6 class="my-0">Second product</h6>
-              <small class="text-body-secondary">Brief description</small>
-            </div>
-            <span class="text-body-secondary">$8</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div>
-              <h6 class="my-0">Third item</h6>
-              <small class="text-body-secondary">Brief description</small>
-            </div>
-            <span class="text-body-secondary">$5</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between bg-body-tertiary">
+          <% end %>
+          <% end %>
+          <%# <li class="list-group-item d-flex justify-content-between bg-body-tertiary">
             <div class="text-success">
               <h6 class="my-0">プロモーションコード</h6>
               <small>EXAMPLECODE</small>
             </div>
-            <span class="text-success">−$5</span>
-          </li>
+            <span class="text-success">−0円</span>
+          </li> %>
           <li class="list-group-item d-flex justify-content-between">
             <span>合計(円)</span>
-            <strong>20円</strong>
+            <strong><%= @total_price %>円</strong>
           </li>
         </ul>
 
-        <form class="card p-2">
+        <%# <form class="card p-2">
           <div class="input-group">
             <input type="text" class="form-control" placeholder="Promo code">
             <button type="submit" class="btn btn-secondary">Redeem</button>
           </div>
-        </form>
+        </form> %>
       </div>
       <div class="col-md-7 col-lg-8">
         <h4 class="mb-3">請求先住所</h4>
