@@ -16,9 +16,9 @@
           <% if current_cart.cart_products.empty? %>
             <p>カートに何も入っていません</p>
           <% else %>
-          <% current_cart.cart_products.each do |cart_product| %>
+          <% current_cart.cart_products.order(:product_id).each do |cart_product| %>
           <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div>
+            <div class="h-25>
               <h6 class="my-0 fs-5 fw-bolder"><%= cart_product.product.name %></h6>
                 <div class="d-flex justify-content-between">
                   <%= form_with model: @cart_product, url: cart_product_path(cart_product), method: :patch, class: "d-flex" do | form | %>
