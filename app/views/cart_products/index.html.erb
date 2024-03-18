@@ -18,17 +18,17 @@
           <% else %>
             <% current_cart.cart_products.order(:product_id).each do |cart_product| %>
             <li class="list-group-item d-flex justify-content-between lh-sm">
-              <div class="h-25>
-                <h6 class="my-0 fs-5 fw-bolder"><%= cart_product.product.name %></h6>
-                  <div class="d-flex justify-content-between">
-                    <%= form_with model: @cart_product, url: cart_product_path(cart_product), method: :patch, class: "d-flex" do | form | %>
-                      <%= form.number_field :quantity, min: 0, class: 'form-control text-center', value: cart_product.quantity %>
-                      <%= form.submit '更新', class: 'btn btn-outline-dark' %>
+              <div>
+                <h6 class = "my-0 fs-5 fw-medium mb-2"><%= cart_product.product.name %></h6>
+                  <div class="">
+                    <%= form_with model: @cart_product, url: cart_product_path(cart_product), method: :patch, class: "d-flex col-md-10" do | form | %>
+                      <%= form.number_field :quantity, min: 0, class: 'form-control text-center me-1', value: cart_product.quantity %>
+                      <%= form.submit '更新', class: 'btn btn-outline-dark me-1' %>
+                    <%= link_to '削除', cart_product_path(cart_product), data: { turbo_method: :delete, turbo_confirm: '削除しますか？' }, class: 'btn btn-outline-dark text-nowrap' %>
                     <% end %>
-                    <%= link_to '削除', cart_product_path(cart_product), data: { turbo_method: :delete, turbo_confirm: '削除しますか？' }, class: 'btn btn-outline-dark' %>
                 </div>
               </div>
-              <span class="text-body-secondary"><%= cart_product.price %>円</span>
+              <span class="text-body-secondary  text-nowrap"><%= cart_product.price %>円</span>
             </li>
             <% end %>
           <% end %>
