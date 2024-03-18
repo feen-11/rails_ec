@@ -4,9 +4,6 @@ class CartProductsController < ApplicationController
   before_action :load_cart_product, only: %i[update destroy]
 
   def index
-    @cart_products = CartProduct.where(cart_id: @cart.id).order(product_id: :asc)
-    @total_quantity = @cart_products.sum(:quantity)
-    @total_price = @cart_products.sum(:price)
   end
 
   def create
@@ -14,22 +11,23 @@ class CartProductsController < ApplicationController
     quantity = cart_product_create_params[:quantity].present? ? cart_product_create_params[:quantity].to_i : 1
     price = product.price * quantity
 
+    # current_cartに紐づいたものの中から一致するものは更新しない？
     existing_cart_product = CartProduct.find_by(cart_id: @cart.id, product_id: cart_product_create_params[:product_id])
 
     if existing_cart_product
       existing_cart_product.quantity += quantity
       existing_cart_product.price += price
       if existing_cart_product.save
-        redirect_to root_path, notice: 'カート内の商品の数量を更新しました。'
+        redirect_to root_path, notice: '数量を更新しました。'
       else
-        redirect_to root_path, notice: 'カート内の商品の数量を更新できませんでした。'
+        redirect_to root_path, notice: '数量を更新できませんでした。'
       end
     else
       @cart_product = CartProduct.new(cart_id: @cart.id, product_id: cart_product_create_params[:product_id], quantity: quantity, price: price)
       if @cart_product.save
-        redirect_to root_path, notice: '商品をカートに追加しました'
+        redirect_to root_path, notice: '商品をカートに追加しました。'
       else
-        redirect_to root_path, notice: '商品をカートに追加できませんでした'
+        redirect_to root_path, notice: '商品をカートに追加できませんでした。'
       end
     end
   end

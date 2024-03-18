@@ -16,7 +16,7 @@
       <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
         <div class="text-center">
           <% if request.path_info == '/' %>
-            <%= link_to '詳細', product, class: 'btn btn-outline-dark mt-auto' %>
+            <%= link_to '詳細', product, class: 'btn btn-outline-dark mb-2' %>
             <%= button_to 'カートに入れる', product_cart_products_path(product.id), class: 'btn btn-outline-dark mt-auto' %>
           <% end %>
           <% if request.path_info.start_with?('/admin') %>
