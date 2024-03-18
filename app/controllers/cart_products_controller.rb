@@ -11,7 +11,6 @@ class CartProductsController < ApplicationController
     quantity = cart_product_create_params[:quantity].present? ? cart_product_create_params[:quantity].to_i : 1
     price = product.price * quantity
 
-    # current_cartに紐づいたものの中から一致するものは更新しない？
     existing_cart_product = CartProduct.find_by(cart_id: @cart.id, product_id: cart_product_create_params[:product_id])
 
     if existing_cart_product
