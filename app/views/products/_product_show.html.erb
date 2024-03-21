@@ -9,14 +9,9 @@
     <div class="d-flex">
       <% if request.path_info.start_with?('/products') %>
         <%= form_with url: product_cart_products_path(product.id) do | form | %>
-          <%= form.number_field :quantity, class: 'form-control text-center me-3', value: 1 %>
+          <%= form.number_field :quantity, min: 1, class: 'form-control text-center me-3', value: @cart_product_quantity %>
           <%= form.submit 'カートに入れる', class: 'btn btn-outline-dark flex-shrink-0' %>
         <% end %>
-        <%# <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-        <button class="btn btn-outline-dark flex-shrink-0" type="button">
-          <i class="bi-cart-fill me-1"></i>
-          カートに入れる
-        </button> %>
       <% end %>
       <% if request.path_info.start_with?('/admin') %>
         <%= link_to '編集', edit_admin_product_path(product), class: 'btn btn-outline-dark mt-auto' %>

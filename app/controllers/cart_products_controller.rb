@@ -8,15 +8,13 @@ class CartProductsController < ApplicationController
 
   def create
     product = Product.find(cart_product_create_params[:product_id])
-    quantity = cart_product_create_params[:quantity].present? ? cart_product_create_params[:quantity].to_i : 1
-    price = product.price * quantity
+    quantity = (cart_product_create_params[:quantity].presence || 1).to_i
+    price = calculate_price(product, quantity)
 
     existing_cart_product = CartProduct.find_by(cart_id: @cart.id, product_id: cart_product_create_params[:product_id])
 
     if existing_cart_product
-      existing_cart_product.quantity += quantity
-      existing_cart_product.price += price
-      if existing_cart_product.save
+      if existing_cart_product.update(quantity: quantity, price: price)
         redirect_to root_path, notice: '数量を更新しました。'
       else
         redirect_to root_path, notice: '数量を更新できませんでした。'
@@ -29,22 +27,22 @@ class CartProductsController < ApplicationController
         redirect_to root_path, notice: '商品をカートに追加できませんでした。'
       end
     end
+
   end
 
   def update
-    price = @cart_product.product.price * cart_product_update_params[:quantity].to_i
-    if price < 1
-      @cart_product.destroy
-      redirect_to cart_products_path, notice: '商品をカートから削除しました。'
+    quantity = cart_product_update_params[:quantity].to_i
+    price = calculate_price(@cart_product.product, quantity)
+    if quantity < 1
+      destroy_cart_product
     else
-      @cart_product.update(quantity: cart_product_update_params[:quantity], price: price)
+      @cart_product.update(quantity: quantity, price: price)
       redirect_to cart_products_path, notice: '数量を更新しました。'
     end
   end
 
   def destroy
-    @cart_product.destroy
-    redirect_to cart_products_path, notice: '商品をカートから削除しました。'
+    destroy_cart_product
   end
 
   private
@@ -63,6 +61,15 @@ class CartProductsController < ApplicationController
 
   def set_cart
     @cart = current_cart
+  end
+
+  def calculate_price(product, quantity)
+    product.price * quantity
+  end
+
+  def destroy_cart_product
+    @cart_product.destroy
+    redirect_to cart_products_path, notice: '商品をカートから削除しました。'
   end
 
 end
