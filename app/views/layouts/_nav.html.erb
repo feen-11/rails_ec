@@ -21,9 +21,9 @@
         <%= link_to '管理トップ', admin_products_path, class: 'btn btn-outline-dark mr-3' %>
         <%= link_to '新規追加', new_admin_product_path, class: 'btn btn-outline-dark mr-3' %>
         <%= link_to cart_products_path, class: 'btn btn-outline-dark mr-2' do %>
-            <i class="bi-cart-fill me-1"></i>
-            <span>カート</span>
-            <span class="badge bg-dark text-white ms-1 rounded-pill"><%= current_cart.cart_products.sum(:quantity) %></span>
+          <i class="bi-cart-fill me-1"></i>
+          <span>カート</span>
+          <span class="badge bg-dark text-white ms-1 rounded-pill"><%= current_cart.cart_products.sum(:quantity) %></span>
         <% end %>
       </div>
     </div>

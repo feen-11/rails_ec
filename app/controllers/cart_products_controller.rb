@@ -1,10 +1,10 @@
-class CartProductsController < ApplicationController
+# frozen_string_literal: true
 
+class CartProductsController < ApplicationController
   before_action :set_cart
   before_action :load_cart_product, only: %i[update destroy]
 
-  def index
-  end
+  def index; end
 
   def create
     product = Product.find(cart_product_create_params[:product_id])
@@ -14,20 +14,20 @@ class CartProductsController < ApplicationController
     existing_cart_product = CartProduct.find_by(cart_id: @cart.id, product_id: cart_product_create_params[:product_id])
 
     if existing_cart_product
-      if existing_cart_product.update(quantity: quantity, price: price)
+      if existing_cart_product.update(quantity:, price:)
         redirect_to root_path, notice: '数量を更新しました。'
       else
         redirect_to root_path, notice: '数量を更新できませんでした。'
       end
     else
-      cart_product = CartProduct.new(cart_id: @cart.id, product_id: cart_product_create_params[:product_id], quantity: quantity, price: price)
+      cart_product = CartProduct.new(cart_id: @cart.id, product_id: cart_product_create_params[:product_id],
+                                     quantity:, price:)
       if cart_product.save
         redirect_to root_path, notice: '商品をカートに追加しました。'
       else
         redirect_to root_path, notice: '商品をカートに追加できませんでした。'
       end
     end
-
   end
 
   def update
@@ -36,7 +36,7 @@ class CartProductsController < ApplicationController
     if quantity < 1
       destroy_cart_product
     else
-      @cart_product.update(quantity: quantity, price: price)
+      @cart_product.update(quantity:, price:)
       redirect_to cart_products_path, notice: '数量を更新しました。'
     end
   end
@@ -71,5 +71,4 @@ class CartProductsController < ApplicationController
     @cart_product.destroy
     redirect_to cart_products_path, notice: '商品をカートから削除しました。'
   end
-
 end

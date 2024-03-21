@@ -19,4 +19,3 @@
                        filename: 'product01.jpg')
   product.save!
 end
-
