@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Product < ApplicationRecord
-  has_many :cart_products
+  has_many :cart_products, dependent: :destroy
   has_one_attached :image
   validates :name, :image, :description, presence: true
   validates :price, presence: true,
