@@ -13,8 +13,11 @@ class CartProductsController < ApplicationController
 
     existing_cart_product = CartProduct.find_by(cart_id: @cart.id, product_id: cart_product_create_params[:product_id])
 
+    
     if existing_cart_product
-      if existing_cart_product.update(quantity:, price:)
+      existing_cart_product.quantity += quantity
+      existing_cart_product.price = calculate_price(product, existing_cart_product.quantity)
+      if existing_cart_product.save
         redirect_to root_path, notice: '数量を更新しました。'
       else
         redirect_to root_path, notice: '数量を更新できませんでした。'

@@ -9,7 +9,7 @@
     <div class="d-flex">
       <% if request.path_info.start_with?('/products') %>
         <%= form_with url: product_cart_products_path(product.id) do | form | %>
-          <%= form.number_field :quantity, min: 1, class: 'form-control text-center me-3', value: @cart_product_quantity %>
+          <%= form.number_field :quantity, min: 1, class: 'form-control text-center me-3', value: 1 %>
           <%= form.submit 'カートに入れる', class: 'btn btn-outline-dark flex-shrink-0' %>
         <% end %>
       <% end %>
