@@ -1,28 +1,23 @@
 <% products.each do |product| %>
   <div class="col mb-5">
     <div class="card h-100">
-      <!-- Product image-->
-      <%= image_tag product.image, class:'card-img-top' %>
-      <!-- Product details-->
+      <%= image_tag product.image, class:'card-img-top', style: 'height: 150px; object-fit: cover;' %>
       <div class="card-body p-4">
         <div class="text-center">
-          <!-- Product name-->
           <h5 class="fw-bolder"><%= product.name %></h5>
-          <!-- Product reviews-->
           <div class="d-flex justify-content-center small text-warning mb-2">
             <% product.evaluation.times do %>
               <div class="bi-star-fill"></div>
             <% end %>
           </div>
-          <!-- Product price-->
           <%= "#{product.price}円" %>
         </div>
       </div>
-      <!-- Product actions-->
       <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
         <div class="text-center">
           <% if request.path_info == '/' %>
-            <%= link_to '詳細', product, class: 'btn btn-outline-dark mt-auto' %>
+            <%= link_to '詳細', product, class: 'btn btn-outline-dark mb-2' %>
+            <%= button_to 'カートに入れる', product_cart_products_path(product.id), class: 'btn btn-outline-dark mt-auto' %>
           <% end %>
           <% if request.path_info.start_with?('/admin') %>
             <%= link_to '詳細', admin_product_path(product), class: 'btn btn-outline-dark mt-auto' %>

@@ -18,7 +18,6 @@ module Admin
     def create
       @product = Product.new(product_params)
       if @product.save
-        # 保存に成功した場合の処理
         redirect_to admin_products_path, notice: '商品を追加しました'
       else
         render :new, status: :unprocessable_entity
@@ -29,7 +28,6 @@ module Admin
 
     def update
       if @product.update(product_params)
-        # 保存に成功した場合の処理
         redirect_to admin_products_path, notice: "#{@product.name}を更新しました"
       else
         render :edit, status: :unprocessable_entity
