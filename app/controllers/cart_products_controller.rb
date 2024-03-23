@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class CartProductsController < ApplicationController
-  before_action :set_cart
   before_action :load_cart_product, only: %i[update destroy]
 
   def index; end
@@ -10,11 +9,11 @@ class CartProductsController < ApplicationController
     product = Product.find(cart_product_create_params[:product_id])
     quantity = (cart_product_create_params[:quantity].presence || 1).to_i
 
-    cart_product = CartProduct.find_or_initialize_by(cart_id: @cart.id, product_id: product.id)
+    cart_product = CartProduct.find_or_initialize_by(cart_id: @current_cart.id, product_id: product.id)
     cart_product.quantity = cart_product.quantity.to_i + quantity
     cart_product.price = calculate_price(product, cart_product.quantity)
 
-    save_and_redirect(cart_product, cart_product.new_record? ? '商品をカートに追加しました。' : '数量を更新しました。')
+    save_and_redirect(cart_product, cart_product.new_record? ? '商品をカートに追加しました。' : '数量を更新しました。', root_path)
   end
 
   def update
@@ -24,7 +23,7 @@ class CartProductsController < ApplicationController
     else
       @cart_product.quantity = quantity
       @cart_product.price = calculate_price(@cart_product.product, quantity)
-      save_and_redirect(@cart_product, '数量を更新しました。')
+      save_and_redirect(@cart_product, '数量を更新しました。', cart_products_path)
     end
   end
 
@@ -46,10 +45,6 @@ class CartProductsController < ApplicationController
     @cart_product = CartProduct.find(params[:id])
   end
 
-  def set_cart
-    @cart = current_cart
-  end
-
   def calculate_price(product, quantity)
     product.price * quantity
   end
@@ -59,11 +54,11 @@ class CartProductsController < ApplicationController
     redirect_to cart_products_path, notice: '商品をカートから削除しました。'
   end
 
-  def save_and_redirect(cart_product, notice)
+  def save_and_redirect(cart_product, notice, redirect_path)
     if cart_product.save
-      redirect_to(root_path, notice:)
+      redirect_to(redirect_path, notice:)
     else
-      redirect_to root_path, notice: '操作を完了できませんでした。'
+      redirect_to redirect_path, notice: '操作を完了できませんでした。'
     end
   end
 end
