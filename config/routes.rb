@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  get 'orders/index'
+  get 'orders/create'
   root 'products#index'
   namespace :admin do
     resources :products
