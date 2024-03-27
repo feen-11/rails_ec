@@ -71,7 +71,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_27_132719) do
     t.string "credit_expiration", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "cart_id"
+    t.bigint "cart_id", null: false
   end
 
   create_table "products", force: :cascade do |t|
