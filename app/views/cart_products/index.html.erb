@@ -50,94 +50,64 @@
       </div>
       <div class="col-md-7 col-lg-8">
         <h4 class="mb-3">請求先住所</h4>
-        <form class="needs-validation" novalidate>
+        <%= form_with url: cart_orders_path(@current_cart) do | form | %>
           <div class="row g-3">
             <div class="col-sm-6">
-              <label for="firstName" class="form-label">姓</label>
-              <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
-              <div class="invalid-feedback">
-                Valid first name is required.
-              </div>
+              <%= form.label :last_name, "姓", class: 'form-label' %>
+              <%= form.text_field :last_name, placeholder: '田中', class: 'form-control', required: true %>
             </div>
             <div class="col-sm-6">
-              <label for="lastName" class="form-label">名</label>
-              <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
-              <div class="invalid-feedback">
-                Valid last name is required.
-              </div>
+              <%= form.label :first_name, "名", class: 'form-label' %>
+              <%= form.text_field :first_name, placeholder: '太郎', class: 'form-control', required: true %>
             </div>
             <div class="col-12">
-              <label for="email" class="form-label">メールアドレス</label>
-              <input type="email" class="form-control" id="email" placeholder="you@example.com">
-              <div class="invalid-feedback">
-                Please enter a valid email address for shipping updates.
-              </div>
+              <%= form.label :email, "メールアドレス", class: 'form-label' %>
+              <%= form.email_field :email, placeholder: 'you@exmaple.com', class: 'form-control', required: true %>
             </div>
             <div class="col-3">
-              <label for="postal_code" class="form-label">郵便番号</label>
-              <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
-              <div class="invalid-feedback">
-                Please enter your shipping address.
-              </div>
+              <%= form.label :postal_code, "郵便番号", class: 'form-label' %>
+              <%= form.number_field :postal_code, placeholder: '012-3456', class: 'form-control', required: true %>
             </div>
             <div class="col-6">
-              <label for="country" class="form-label">国</label>
-              <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
-              <div class="invalid-feedback">
-                Please enter your shipping address.
-              </div>
+              <%= form.label :country, "国", class: 'form-label' %>
+              <%= form.text_field :country, placeholder: '日本', class: 'form-control', required: true %>
             </div>
             <div class="col-3">
-              <label for="prefecture" class="form-label">都道府県</label>
-              <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
-              <div class="invalid-feedback">
-                Please enter your shipping address.
-              </div>
+              <%= form.label :prefecture, "都道府県", class: 'form-label' %>
+              <%= form.text_field :prefecture, placeholder: '東京都', class: 'form-control', required: true %>
             </div>
             <div class="col-12">
-              <label for="address_1" class="form-label">住所1</label>
-              <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
-              <div class="invalid-feedback">
-                Please enter your shipping address.
-              </div>
+              <%= form.label :address_1, "住所1", class: 'form-label' %>
+              <%= form.text_field :first_name, placeholder: '新宿西新宿', class: 'form-control', required: true %>
             </div>
             <div class="col-12">
-              <label for="address_2" class="form-label">住所2</label>
-              <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
-              <div class="invalid-feedback">
-                Please enter your shipping address.
-              </div>
+              <%= form.label :address_1, "住所2", class: 'form-label' %>
+              <%= form.text_field :first_name, placeholder: '1-2-3', class: 'form-control', required: true %>
             </div>
           </div>
           <hr class="my-4">
           <h4 class="mb-3">クレジットカード情報</h4>
           <div class="row gy-3">
             <div class="col-md-6">
-              <label for="cc-name" class="form-label">名義</label>
-              <input type="text" class="form-control" id="cc-name" placeholder="" required>
+              <%= form.label :credit_name, "名義", class: 'form-label' %>
+              <%= form.number_field :credit_name, placeholder: 'TANAKA TARO', class: 'form-control', required: true %>
             </div>
             <div class="col-md-6">
-              <label for="cc-number" class="form-label">カード番号</label>
-              <input type="text" class="form-control" id="cc-number" placeholder="" required>
+              <%= form.label :credit_number, "カード番号", class: 'form-label' %>
+              <%= form.number_field :credit_number, placeholder: '0000-1111-2222-3333', class: 'form-control', required: true %>
             </div>
             <div class="col-md-3">
-              <label for="cc-expiration" class="form-label">有効期限</label>
-              <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-              <div class="invalid-feedback">
-                Expiration date required
-              </div>
+              <%= form.label :credit_expiration, "有効期限", class: 'form-label' %>
+              <%= form.number_field :credit_expiration, placeholder: '03/28', class: 'form-control', required: true %>
             </div>
             <div class="col-md-3">
-              <label for="cc-cvv" class="form-label">CVV</label>
-              <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-              <div class="invalid-feedback">
-                Security code required
-              </div>
+              <%= form.label :credit_cvv, "CVV", class: 'form-label' %>
+              <%= form.number_field :credit_cvv, placeholder: '012', class: 'form-control', required: true %>
             </div>
           </div>
           <hr class="my-4">
-          <button class="w-100 btn btn-primary btn-lg mb-5" type="submit">購入する</button>
-        </form>
+          <%= form.submit '購入する', class: 'w-100 btn btn-primary btn-lg mb-5' %>
+        <% end %>
       </div>
     </div>
   </main>
