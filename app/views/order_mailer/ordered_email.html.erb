@@ -2,13 +2,19 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>注文確認メール</title>
+  <title>【ご注文ありがとうございます】注文確定のお知らせ</title>
 </head>
 <body>
-  <h1>注文が確定しました</h1>
-  <p>この度はご注文いただきありがとうございます。</p>
-  <p>注文番号：<%= @order.id %></p>
-  <p>商品名：<%= @order.first_name %></p>
-  <!-- その他の注文情報 -->
+  <p><%= @order.last_name %>様<br>この度はご利用いただきありがとうございます。ご注文が確定しました。</p>
+  ■注文番号: <%= @order.id %>
+  ■注文日時: <%= @order.created_at.strftime('%Y年%m月%d日 %H:%M') %>
+  <% @order.cart.cart_products.each do |cart_product| %>
+    <p>商品名：<%= cart_product.name %></p>
+    <p>価格：<%= cart_product.price %>円</p>
+    <p>個数：<%= cart_product.quantity %></p>
+    <p>合計価格：<%= cart_product.total_price %>円</p>
+  <% end %>
+  <%= @order.cart.cart_products.sum(:total_price) %>
+  <p>またのご利用、心よりお待ちしております。</p>
 </body>
 </html>
