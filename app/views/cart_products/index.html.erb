@@ -55,34 +55,123 @@
             <div class="col-sm-6">
               <%= form.label :last_name, "姓", class: 'form-label' %>
               <%= form.text_field :last_name, placeholder: '田中', class: 'form-control', required: true %>
+                <% if @order.errors.include?(:last_name) %>
+                <div class="alert alert-danger mt-3">
+                  <ul class="mb-0">
+                    <% @order.errors.full_messages_for(:last_name).each do |message|  %>
+                      <li>
+                        <%= message %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
             </div>
             <div class="col-sm-6">
               <%= form.label :first_name, "名", class: 'form-label' %>
               <%= form.text_field :first_name, placeholder: '太郎', class: 'form-control', required: true %>
+                <% if @order.errors.include?(:first_name) %>
+                <div class="alert alert-danger mt-3">
+                  <ul class="mb-0">
+                    <% @order.errors.full_messages_for(:first_name).each do |message|  %>
+                      <li>
+                        <%= message %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
+              
             </div>
             <div class="col-12">
               <%= form.label :email, "メールアドレス", class: 'form-label' %>
-              <%= form.email_field :email, placeholder: 'you@exmaple.com', class: 'form-control', required: true %>
+              <%= form.text_field :email, placeholder: 'you@exmaple.com', class: 'form-control', required: true %>
+                <% if @order.errors.include?(:email) %>
+                <div class="alert alert-danger mt-3">
+                  <ul class="mb-0">
+                    <% @order.errors.full_messages_for(:email).each do |message|  %>
+                      <li>
+                        <%= message %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
             </div>
             <div class="col-3">
               <%= form.label :postal_code, "郵便番号", class: 'form-label' %>
               <%= form.text_field :postal_code, placeholder: '012-3456', class: 'form-control', required: true %>
+                <% if @order.errors.include?(:postal_code) %>
+                <div class="alert alert-danger mt-3">
+                  <ul class="mb-0">
+                    <% @order.errors.full_messages_for(:postal_code).each do |message|  %>
+                      <li>
+                        <%= message %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
             </div>
             <div class="col-6">
               <%= form.label :country, "国", class: 'form-label' %>
               <%= form.text_field :country, placeholder: '日本', class: 'form-control', required: true %>
+                <% if @order.errors.include?(:country) %>
+                <div class="alert alert-danger mt-3">
+                  <ul class="mb-0">
+                    <% @order.errors.full_messages_for(:country).each do |message|  %>
+                      <li>
+                        <%= message %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
             </div>
             <div class="col-3">
               <%= form.label :prefecture, "都道府県", class: 'form-label' %>
               <%= form.text_field :prefecture, placeholder: '東京都', class: 'form-control', required: true %>
+                <% if @order.errors.include?(:prefecture) %>
+                <div class="alert alert-danger mt-3">
+                  <ul class="mb-0">
+                    <% @order.errors.full_messages_for(:prefecture).each do |message|  %>
+                      <li>
+                        <%= message %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
             </div>
             <div class="col-12">
               <%= form.label :address_1, "住所1", class: 'form-label' %>
               <%= form.text_field :address_1, placeholder: '新宿西新宿', class: 'form-control', required: true %>
+                <% if @order.errors.include?(:address_1) %>
+                <div class="alert alert-danger mt-3">
+                  <ul class="mb-0">
+                    <% @order.errors.full_messages_for(:address_1).each do |message|  %>
+                      <li>
+                        <%= message %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
             </div>
             <div class="col-12">
               <%= form.label :address_1, "住所2", class: 'form-label' %>
               <%= form.text_field :address_2, placeholder: '1-2-3', class: 'form-control', required: true %>
+                <% if @order.errors.include?(:address_2) %>
+                <div class="alert alert-danger mt-3">
+                  <ul class="mb-0">
+                    <% @order.errors.full_messages_for(:address_2).each do |message|  %>
+                      <li>
+                        <%= message %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
             </div>
           </div>
           <hr class="my-4">
@@ -91,18 +180,62 @@
             <div class="col-md-6">
               <%= form.label :credit_name, "名義", class: 'form-label' %>
               <%= form.text_field :credit_name, placeholder: 'TANAKA TARO', class: 'form-control', required: true %>
+                <% if @order.errors.include?(:credit_name) %>
+                <div class="alert alert-danger mt-3">
+                  <ul class="mb-0">
+                    <% @order.errors.full_messages_for(:credit_name).each do |message|  %>
+                      <li>
+                        <%= message %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
             </div>
             <div class="col-md-6">
               <%= form.label :credit_number, "カード番号", class: 'form-label' %>
               <%= form.text_field :credit_number, placeholder: '0000-1111-2222-3333', class: 'form-control', required: true %>
+                <% if @order.errors.include?(:credit_number) %>
+                <div class="alert alert-danger mt-3">
+                  <ul class="mb-0">
+                    <% @order.errors.full_messages_for(:credit_number).each do |message|  %>
+                      <li>
+                        <%= message %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
             </div>
             <div class="col-md-3">
               <%= form.label :credit_expiration, "有効期限", class: 'form-label' %>
               <%= form.text_field :credit_expiration, placeholder: '03/28', class: 'form-control', required: true %>
+                <% if @order.errors.include?(:credit_expiration) %>
+                <div class="alert alert-danger mt-3">
+                  <ul class="mb-0">
+                    <% @order.errors.full_messages_for(:credit_expiration).each do |message|  %>
+                      <li>
+                        <%= message %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
             </div>
             <div class="col-md-3">
               <%= form.label :credit_cvv, "CVV", class: 'form-label' %>
               <%= form.text_field :credit_cvv, placeholder: '012', class: 'form-control', required: true %>
+                <% if @order.errors.include?(:credit_cvv) %>
+                <div class="alert alert-danger mt-3">
+                  <ul class="mb-0">
+                    <% @order.errors.full_messages_for(:credit_cvv).each do |message|  %>
+                      <li>
+                        <%= message %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
             </div>
           </div>
           <hr class="my-4">
