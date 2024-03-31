@@ -16,7 +16,7 @@
             <% @current_cart.cart_products.order(:product_id).each do |cart_product| %>
               <li class="list-group-item d-flex justify-content-between lh-sm">
                 <div>
-                  <h6 class = "my-0 fs-5 fw-medium mb-2"><%= cart_product.product.name %></h6>
+                  <h6 class = "my-0 fs-5 fw-medium mb-2"><%= cart_product.name %></h6>
                   <div class="">
                     <%= form_with model: @cart_product, url: cart_product_path(cart_product), method: :patch, class: "d-flex col-md-10" do | form | %>
                       <%= form.number_field :quantity, min: 0, class: 'form-control text-center me-1', value: cart_product.quantity %>
@@ -25,7 +25,7 @@
                     <% end %>
                   </div>
                 </div>
-                <span class="text-body-secondary  text-nowrap"><%= cart_product.price %>円</span>
+                <span class="text-body-secondary  text-nowrap"><%= cart_product.total_price %>円</span>
               </li>
             <% end %>
           <% end %>
@@ -38,7 +38,7 @@
           </li> %>
           <li class="list-group-item d-flex justify-content-between">
             <span>合計(円)</span>
-            <strong><%= @current_cart.cart_products.sum(:price) %>円</strong>
+            <strong><%= @current_cart.cart_products.sum(:total_price) %>円</strong>
           </li>
         </ul>
         <%# <form class="card p-2">
