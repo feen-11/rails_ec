@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     if @order.save
-      clear_cart
+      # clear_cart
       redirect_to root_path, notice: '購入が完了しました。メールをご確認ください。'
     else
       render 'cart_products/index', status: :unprocessable_entity
