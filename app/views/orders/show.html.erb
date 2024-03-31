@@ -1,0 +1,6 @@
+<% @order.cart.cart_products.each do |order_detail| %>
+  <%= order_detail.name %>
+  <%= order_detail.price %>
+  <%= order_detail.total_price %>
+<% end %>
+
