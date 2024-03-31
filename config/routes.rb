@@ -12,4 +12,8 @@ Rails.application.routes.draw do
   resources :carts do
     resources :orders, only: %i[create]
   end
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
+  
 end

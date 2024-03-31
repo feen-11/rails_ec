@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>注文確認メール</title>
+</head>
+<body>
+  <h1>注文が確定しました</h1>
+  <p>この度はご注文いただきありがとうございます。</p>
+  <p>注文番号：<%= @order.id %></p>
+  <p>商品名：<%= @order.first_name %></p>
+  <!-- その他の注文情報 -->
+</body>
+</html>

@@ -6,6 +6,7 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     if @order.save
       # clear_cart
+      OrderMailer.ordered_email(@order).deliver_now
       redirect_to root_path, notice: '購入が完了しました。メールをご確認ください。'
     else
       render 'cart_products/index', status: :unprocessable_entity
@@ -22,6 +23,7 @@ class OrdersController < ApplicationController
     reset_session
   end
 
-  def send_email
-  end
+  # def send_email
+  #   OrderMailer.ordered_email(@order).deliver_now
+  # end
 end
