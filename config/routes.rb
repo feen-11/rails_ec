@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get 'orders/index'
-  get 'orders/create'
   root 'products#index'
   namespace :admin do
     resources :products
@@ -11,4 +9,7 @@ Rails.application.routes.draw do
     resources :cart_products, only: :create
   end
   resources :cart_products, only: %i[index update destroy]
+  resources :carts do
+    resources :orders, only: %i[create]
+  end
 end

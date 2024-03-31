@@ -3,7 +3,9 @@
 class CartProductsController < ApplicationController
   before_action :load_cart_product, only: %i[update destroy]
 
-  def index; end
+  def index
+    @order = Order.new
+  end
 
   def create
     product = Product.find(cart_product_create_params[:product_id])

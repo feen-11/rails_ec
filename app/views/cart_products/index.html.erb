@@ -50,7 +50,7 @@
       </div>
       <div class="col-md-7 col-lg-8">
         <h4 class="mb-3">請求先住所</h4>
-        <%= form_with url: cart_orders_path(@current_cart) do | form | %>
+        <%= form_with model: @order , url: cart_orders_path(@current_cart), local: true do | form | %>
           <div class="row g-3">
             <div class="col-sm-6">
               <%= form.label :last_name, "姓", class: 'form-label' %>
@@ -66,7 +66,7 @@
             </div>
             <div class="col-3">
               <%= form.label :postal_code, "郵便番号", class: 'form-label' %>
-              <%= form.number_field :postal_code, placeholder: '012-3456', class: 'form-control', required: true %>
+              <%= form.text_field :postal_code, placeholder: '012-3456', class: 'form-control', required: true %>
             </div>
             <div class="col-6">
               <%= form.label :country, "国", class: 'form-label' %>
@@ -78,11 +78,11 @@
             </div>
             <div class="col-12">
               <%= form.label :address_1, "住所1", class: 'form-label' %>
-              <%= form.text_field :first_name, placeholder: '新宿西新宿', class: 'form-control', required: true %>
+              <%= form.text_field :address_1, placeholder: '新宿西新宿', class: 'form-control', required: true %>
             </div>
             <div class="col-12">
               <%= form.label :address_1, "住所2", class: 'form-label' %>
-              <%= form.text_field :first_name, placeholder: '1-2-3', class: 'form-control', required: true %>
+              <%= form.text_field :address_2, placeholder: '1-2-3', class: 'form-control', required: true %>
             </div>
           </div>
           <hr class="my-4">
@@ -90,19 +90,19 @@
           <div class="row gy-3">
             <div class="col-md-6">
               <%= form.label :credit_name, "名義", class: 'form-label' %>
-              <%= form.number_field :credit_name, placeholder: 'TANAKA TARO', class: 'form-control', required: true %>
+              <%= form.text_field :credit_name, placeholder: 'TANAKA TARO', class: 'form-control', required: true %>
             </div>
             <div class="col-md-6">
               <%= form.label :credit_number, "カード番号", class: 'form-label' %>
-              <%= form.number_field :credit_number, placeholder: '0000-1111-2222-3333', class: 'form-control', required: true %>
+              <%= form.text_field :credit_number, placeholder: '0000-1111-2222-3333', class: 'form-control', required: true %>
             </div>
             <div class="col-md-3">
               <%= form.label :credit_expiration, "有効期限", class: 'form-label' %>
-              <%= form.number_field :credit_expiration, placeholder: '03/28', class: 'form-control', required: true %>
+              <%= form.text_field :credit_expiration, placeholder: '03/28', class: 'form-control', required: true %>
             </div>
             <div class="col-md-3">
               <%= form.label :credit_cvv, "CVV", class: 'form-label' %>
-              <%= form.number_field :credit_cvv, placeholder: '012', class: 'form-control', required: true %>
+              <%= form.text_field :credit_cvv, placeholder: '012', class: 'form-control', required: true %>
             </div>
           </div>
           <hr class="my-4">
