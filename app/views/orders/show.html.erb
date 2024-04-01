@@ -1,6 +1,16 @@
+<header class="bg-primary py-5">
+  <div class="container px-4 px-lg-5 my-5">
+    <div class="text-center text-white">
+      <h1 class="display-4 fw-bolder">購入明細</h1>
+      <p class="lead fw-normal text-white-50 mb-0">管理画面</p>
+    </div>
+  </div>
+</header>
 <% @order.cart.cart_products.each do |order_detail| %>
   <%= order_detail.name %>
   <%= order_detail.price %>
+  <%= order_detail.quantity %>
   <%= order_detail.total_price %>
 <% end %>
+
 
