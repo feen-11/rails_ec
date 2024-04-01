@@ -10,4 +10,10 @@ class ApplicationController < ActionController::Base
     session[:cart_id] ||= @current_cart.id
     @current_cart
   end
+
+  def basic_auth
+    authenticate_or_request_with_http_basic do |name, password|
+      name == ENV['BASIC_AUTH_NAME'] && password == ENV['BASIC_AUTH_PASSWORD']
+    end
+  end
 end

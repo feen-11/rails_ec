@@ -1,4 +1,6 @@
 class OrdersController < ApplicationController
+  before_action :basic_auth, only: %i[index show]
+  
   def index
     @orders = Order.all.order(:id)
   end
@@ -10,8 +12,8 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     if @order.save
-      # clear_cart
       OrderMailer.ordered_email(@order).deliver_now
+      clear_cart
       redirect_to root_path, notice: '購入が完了しました。メールをご確認ください。'
     else
       render 'cart_products/index', status: :unprocessable_entity
