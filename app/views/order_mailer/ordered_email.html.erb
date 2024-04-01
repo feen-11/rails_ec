@@ -6,8 +6,8 @@
 </head>
 <body>
   <p><%= @order.last_name %>様<br>この度はご利用いただきありがとうございます。ご注文が確定しました。</p>
-  ■注文番号: <%= @order.id %>
-  ■注文日時: <%= @order.created_at.strftime('%Y年%m月%d日 %H:%M') %>
+  ■購入番号: <%= @order.id %>
+  ■購入日時: <%= @order.created_at.strftime('%Y年%m月%d日 %H:%M') %>
   <% @order.cart.cart_products.each do |cart_product| %>
     <p>商品名：<%= cart_product.name %></p>
     <p>価格：<%= cart_product.price %>円</p>
