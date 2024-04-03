@@ -62,6 +62,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_03_124243) do
     t.bigint "order_id", null: false
     t.string "name", null: false
     t.integer "price", null: false
+    t.integer "total_price", null: false
     t.integer "quantity", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

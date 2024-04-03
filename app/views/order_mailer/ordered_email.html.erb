@@ -9,15 +9,15 @@
       この度はご利用いただきありがとうございます。ご注文が確定しました。</p>
     <p>■購入番号: <%= @order.id %></p>
     <p>■購入日時: <%= @order.created_at.strftime('%Y年%m月%d日 %H:%M') %></p>
-    <% @order.cart.cart_products.each do |cart_product| %>
+    <% @order.order_products.each do |order_product| %>
       <ul>
-        <li>商品名：<%= cart_product.name %></li>
-        <li>価格：<%= cart_product.price %>円</li>
-        <li>個数：<%= cart_product.quantity %></li>
-        <li>合計価格：<%= cart_product.total_price %>円</li>
+        <li>商品名：<%= order_product.name %></li>
+        <li>価格：<%= order_product.price %>円</li>
+        <li>個数：<%= order_product.quantity %></li>
+        <li>合計価格：<%= order_product.total_price %>円</li>
       </ul>
     <% end %>
-    <p>■総額：<%= @order.cart.cart_products.sum(:total_price) %>円</p>
+    <p>■総額：<%= @order.order_products.sum(:total_price) %>円</p>
     <p>またのご利用、心よりお待ちしております。</p>
   </body>
 </html>

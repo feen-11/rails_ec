@@ -2,6 +2,7 @@
 
 class Order < ApplicationRecord
   belongs_to :cart
+  has_many :order_products
 
   validates :first_name, :last_name, :country, :prefecture, :address_one, :address_two, :credit_expiration,
             presence: true

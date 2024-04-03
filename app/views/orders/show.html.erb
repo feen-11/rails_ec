@@ -29,16 +29,16 @@
       </tr>
     </thead>
     <tbody>
-      <% @order.cart.cart_products.each_with_index do |order_detail, index| %>
+      <% @order.order_products.each_with_index do |order_product, index| %>
         <tr>
           <td style="vertical-align: middle;"><%= index + 1 %></td>
-          <td style="vertical-align: middle;"><%= order_detail.name %></td>
-          <td style="vertical-align: middle;"><%= order_detail.price %></td>
-          <td style="vertical-align: middle;"><%= order_detail.quantity %></td>
-          <td style="vertical-align: middle;"><%= order_detail.total_price %></td>
+          <td style="vertical-align: middle;"><%= order_product.name %></td>
+          <td style="vertical-align: middle;"><%= order_product.price %></td>
+          <td style="vertical-align: middle;"><%= order_product.quantity %></td>
+          <td style="vertical-align: middle;"><%= order_product.total_price %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
-  <p class="text-end h4" >総額：<%= @order.cart.cart_products.sum(:total_price) %>円</p>
+  <p class="text-end h4" >総額：<%= @order.order_products.sum(:total_price) %>円</p>
 </div>
