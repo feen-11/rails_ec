@@ -3,7 +3,8 @@
 class Order < ApplicationRecord
   belongs_to :cart
 
-  validates :first_name, :last_name, :country, :prefecture, :address_one, :address_two, :credit_expiration, presence: true
+  validates :first_name, :last_name, :country, :prefecture, :address_one, :address_two, :credit_expiration,
+            presence: true
   validates :email, presence: true, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i, message: 'の形式が正しくありません。' }
   validates :postal_code, presence: true, format: { with: /\A\d{3}-?\d{4}\z/, message: 'の形式が正しくありません。' }
   validates :credit_name, presence: true, format: { with: /\A[A-Z\s-]+\z/, message: 'の形式が正しくありません。' }

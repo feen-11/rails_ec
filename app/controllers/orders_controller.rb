@@ -25,8 +25,21 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:first_name, :last_name, :email, :postal_code, :country, :prefecture, :address_one,
-                                  :address_two, :credit_number, :credit_name, :credit_cvv, :credit_expiration).merge(cart_id: params[:cart_id])
+    params.require(:order).permit(
+      :first_name,
+      :last_name,
+      :email,
+      :postal_code,
+      :country,
+      :prefecture,
+      :address_one,
+      :address_two,
+      :credit_number,
+      :credit_name,
+      :credit_cvv,
+      :credit_expiration
+    )
+          .merge(cart_id: params[:cart_id])
   end
 
   def clear_cart
