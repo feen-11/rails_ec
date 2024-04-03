@@ -24,7 +24,6 @@ class CartProductsController < ApplicationController
     if quantity < 1
       destroy_cart_product
     else
-      # @cart_product.price = cart_product_update_params[:price]
       @cart_product.quantity = quantity
       @cart_product.total_price = calculate_price(@cart_product, quantity)
       save_and_redirect(@cart_product, '数量を更新しました。', cart_products_path)
