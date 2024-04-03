@@ -65,8 +65,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_31_094459) do
     t.string "postal_code", null: false
     t.string "country", null: false
     t.string "prefecture", null: false
-    t.string "address_1", null: false
-    t.string "address_2", null: false
+    t.string "address_one", null: false
+    t.string "address_two", null: false
     t.string "credit_number", null: false
     t.string "credit_name", null: false
     t.string "credit_cvv", null: false

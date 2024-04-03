@@ -143,12 +143,12 @@
               <% end %>
             </div>
             <div class="col-12">
-              <%= form.label :address_1, "住所1", class: 'form-label' %>
-              <%= form.text_field :address_1, placeholder: '新宿西新宿', class: 'form-control', required: true %>
-              <% if @order.errors.include?(:address_1) %>
+              <%= form.label :address_one, "住所1", class: 'form-label' %>
+              <%= form.text_field :address_one, placeholder: '新宿西新宿', class: 'form-control', required: true %>
+              <% if @order.errors.include?(:address_one) %>
                 <div class="alert alert-danger mt-3">
                   <ul class="mb-0">
-                    <% @order.errors.full_messages_for(:address_1).each do |message|  %>
+                    <% @order.errors.full_messages_for(:address_one).each do |message|  %>
                       <li>
                         <%= message %>
                       </li>
@@ -158,12 +158,12 @@
               <% end %>
             </div>
             <div class="col-12">
-              <%= form.label :address_1, "住所2", class: 'form-label' %>
-              <%= form.text_field :address_2, placeholder: '1-2-3', class: 'form-control', required: true %>
-              <% if @order.errors.include?(:address_2) %>
+              <%= form.label :address_two, "住所2", class: 'form-label' %>
+              <%= form.text_field :address_two, placeholder: '1-2-3', class: 'form-control', required: true %>
+              <% if @order.errors.include?(:address_two) %>
                 <div class="alert alert-danger mt-3">
                   <ul class="mb-0">
-                    <% @order.errors.full_messages_for(:address_2).each do |message|  %>
+                    <% @order.errors.full_messages_for(:address_two).each do |message|  %>
                       <li>
                         <%= message %>
                       </li>

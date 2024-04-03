@@ -25,8 +25,8 @@ ja:
         postal_code: 郵便番号
         country: 国
         prefecture: 都道府県
-        address_1: 住所1
-        address_2: 住所2
+        address_one: 住所1
+        address_two: 住所2
         credit_number: カード番号
         credit_name: 名義
         credit_expiration: 有効期限
