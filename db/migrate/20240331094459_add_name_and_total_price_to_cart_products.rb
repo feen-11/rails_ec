@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddNameAndTotalPriceToCartProducts < ActiveRecord::Migration[7.0]
   def change
     add_column :cart_products, :name, :string, null: false

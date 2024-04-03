@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class OrdersController < ApplicationController
   before_action :basic_auth, only: %i[index show]
-  
+
   def index
     @orders = Order.all.order(:id)
   end
@@ -23,9 +25,10 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:first_name, :last_name, :email, :postal_code, :country, :prefecture, :address_1, :address_2, :credit_number, :credit_name, :credit_cvv, :credit_expiration).merge(cart_id: params[:cart_id])
+    params.require(:order).permit(:first_name, :last_name, :email, :postal_code, :country, :prefecture, :address_1,
+                                  :address_2, :credit_number, :credit_name, :credit_cvv, :credit_expiration).merge(cart_id: params[:cart_id])
   end
-  
+
   def clear_cart
     reset_session
   end
