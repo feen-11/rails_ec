@@ -25,7 +25,4 @@ class Order < ApplicationRecord
       errors.add(:credit_expiration, 'が切れています。')
     end
   end
-  # validates :first_name, :last_name, :email, :postal_code, :country, :prefecture, :address_1, :address_2, :credit_number, :credit_name, :credit_cvv, :credit_expiration, presence: true,
-  # numericality: { only_integer: true, greater_than_or_equal_to: 0, message: 'を0以上の半角整数で入力してください' }
-# validates :evaluation, presence: true, numericality: { only_integer: true, in: 1..5, message: 'を1〜5の半角整数で入力してください' }
 end
