@@ -49,8 +49,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_31_094459) do
     t.integer "price", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name", null: false
-    t.integer "total_price", null: false
+    t.string "name", default: "default_name", null: false
+    t.integer "total_price", default: 0, null: false
   end
 
   create_table "carts", force: :cascade do |t|
@@ -73,7 +73,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_31_094459) do
     t.string "credit_expiration", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "cart_id", null: false
+    t.bigint "cart_id", default: 0, null: false
   end
 
   create_table "products", force: :cascade do |t|
