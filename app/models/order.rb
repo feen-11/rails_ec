@@ -3,6 +3,7 @@
 class Order < ApplicationRecord
   belongs_to :cart
   has_many :order_products, dependent: :destroy
+  after_save :after_order_save
 
   validates :first_name, :last_name, :country, :prefecture, :address_one, :address_two, :credit_expiration,
             presence: true
@@ -27,5 +28,23 @@ class Order < ApplicationRecord
     return unless expiration_date < Time.zone.today.beginning_of_month
 
     errors.add(:credit_expiration, 'が切れています。')
+  end
+
+  private
+
+  def after_order_save
+    create_order_products
+    OrderMailer.ordered_email(self).deliver_now
+  end
+
+  def create_order_products
+    cart.cart_products.each do |cart_product|
+      order_products.create(
+        name: cart_product.product.name,
+        price: cart_product.product.price,
+        total_price: cart_product.product.price * cart_product.quantity,
+        quantity: cart_product.quantity
+      )
+    end
   end
 end

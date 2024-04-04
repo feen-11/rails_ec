@@ -14,8 +14,6 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     if @order.save
-      create_order_products(@order)
-      OrderMailer.ordered_email(@order).deliver_now
       clear_cart
       redirect_to root_path, notice: '購入が完了しました。メールをご確認ください。'
     else
@@ -45,16 +43,5 @@ class OrdersController < ApplicationController
 
   def clear_cart
     reset_session
-  end
-
-  def create_order_products(order)
-    order.cart.cart_products.each do |cart_product|
-      order.order_products.create(
-        name: cart_product.product.name,
-        price: cart_product.product.price,
-        total_price: cart_product.product.price * cart_product.quantity,
-        quantity: cart_product.quantity
-      )
-    end
   end
 end
