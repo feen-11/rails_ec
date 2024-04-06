@@ -7,6 +7,7 @@ ja:
       # view側： User.model_name.human => "ユーザ" / t("activerecord.models.user")と同じ
       user: ユーザー
       product: 商品
+      order: 注文
     # model毎に定義したいattributesを記述
     attributes:
       product:
@@ -17,6 +18,19 @@ ja:
         evaluation: 評価
         image: 商品画像
         description: 説明文
+      order:
+        first_name: 名前
+        last_name: 姓
+        email: メールアドレス
+        postal_code: 郵便番号
+        country: 国
+        prefecture: 都道府県
+        address_one: 住所1
+        address_two: 住所2
+        credit_number: カード番号
+        credit_name: 名義
+        credit_expiration: 有効期限
+        credit_cvv: セキュリティコード
   # 全てのmodelで共通して使用するattributesを定義
   attributes:
     created_at: 作成日

@@ -1,9 +1,7 @@
 <div class="container">
   <main>
     <div class="py-5 text-center">
-      <%# <img class="d-block mx-auto mb-4" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> %>
       <h2>注文内容</h2>
-      <%# <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p> %>
     </div>
     <div class="row g-5">
       <div class="col-md-5 col-lg-4 order-md-last">
@@ -18,7 +16,7 @@
             <% @current_cart.cart_products.order(:product_id).each do |cart_product| %>
               <li class="list-group-item d-flex justify-content-between lh-sm">
                 <div>
-                  <h6 class = "my-0 fs-5 fw-medium mb-2"><%= cart_product.product.name %></h6>
+                  <h6 class = "my-0 fs-5 fw-medium mb-2"><%= cart_product.name %></h6>
                   <div class="">
                     <%= form_with model: @cart_product, url: cart_product_path(cart_product), method: :patch, class: "d-flex col-md-10" do | form | %>
                       <%= form.number_field :quantity, min: 0, class: 'form-control text-center me-1', value: cart_product.quantity %>
@@ -27,7 +25,7 @@
                     <% end %>
                   </div>
                 </div>
-                <span class="text-body-secondary  text-nowrap"><%= cart_product.price %>円</span>
+                <span class="text-body-secondary  text-nowrap"><%= cart_product.total_price %>円</span>
               </li>
             <% end %>
           <% end %>
@@ -40,7 +38,7 @@
           </li> %>
           <li class="list-group-item d-flex justify-content-between">
             <span>合計(円)</span>
-            <strong><%= @current_cart.cart_products.sum(:price) %>円</strong>
+            <strong><%= @current_cart.cart_products.sum(:total_price) %>円</strong>
           </li>
         </ul>
         <%# <form class="card p-2">
@@ -52,137 +50,196 @@
       </div>
       <div class="col-md-7 col-lg-8">
         <h4 class="mb-3">請求先住所</h4>
-        <form class="needs-validation" novalidate>
+        <%= form_with model: @order , url: cart_orders_path(@current_cart), local: true do | form | %>
           <div class="row g-3">
             <div class="col-sm-6">
-              <label for="firstName" class="form-label">姓</label>
-              <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
-              <div class="invalid-feedback">
-                Valid first name is required.
-              </div>
+              <%= form.label :last_name, "姓", class: 'form-label' %>
+              <%= form.text_field :last_name, placeholder: '田中', class: 'form-control', required: true %>
+              <% if @order.errors.include?(:last_name) %>
+                <div class="alert alert-danger mt-3">
+                  <ul class="mb-0">
+                    <% @order.errors.full_messages_for(:last_name).each do |message|  %>
+                      <li>
+                        <%= message %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
             </div>
             <div class="col-sm-6">
-              <label for="lastName" class="form-label">名</label>
-              <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
-              <div class="invalid-feedback">
-                Valid last name is required.
-              </div>
-            </div>
-            <div class="col-12">
-              <label for="username" class="form-label">ユーザー名</label>
-              <div class="input-group has-validation">
-                <span class="input-group-text">@</span>
-                <input type="text" class="form-control" id="username" placeholder="Username" required>
-                <div class="invalid-feedback">
-                  Your username is required.
+              <%= form.label :first_name, "名", class: 'form-label' %>
+              <%= form.text_field :first_name, placeholder: '太郎', class: 'form-control', required: true %>
+              <% if @order.errors.include?(:first_name) %>
+                <div class="alert alert-danger mt-3">
+                  <ul class="mb-0">
+                    <% @order.errors.full_messages_for(:first_name).each do |message|  %>
+                      <li>
+                        <%= message %>
+                      </li>
+                    <% end %>
+                  </ul>
                 </div>
-              </div>
+              <% end %>
             </div>
             <div class="col-12">
-              <label for="email" class="form-label">メールアドレス<span class="text-body-secondary">(Optional)</span></label>
-              <input type="email" class="form-control" id="email" placeholder="you@example.com">
-              <div class="invalid-feedback">
-                Please enter a valid email address for shipping updates.
-              </div>
+              <%= form.label :email, "メールアドレス", class: 'form-label' %>
+              <%= form.text_field :email, placeholder: 'you@exmaple.com', class: 'form-control', required: true %>
+              <% if @order.errors.include?(:email) %>
+                <div class="alert alert-danger mt-3">
+                  <ul class="mb-0">
+                    <% @order.errors.full_messages_for(:email).each do |message|  %>
+                      <li>
+                        <%= message %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
+            </div>
+            <div class="col-3">
+              <%= form.label :postal_code, "郵便番号", class: 'form-label' %>
+              <%= form.text_field :postal_code, placeholder: '012-3456', class: 'form-control', required: true %>
+              <% if @order.errors.include?(:postal_code) %>
+                <div class="alert alert-danger mt-3">
+                  <ul class="mb-0">
+                    <% @order.errors.full_messages_for(:postal_code).each do |message|  %>
+                      <li>
+                        <%= message %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
+            </div>
+            <div class="col-6">
+              <%= form.label :country, "国", class: 'form-label' %>
+              <%= form.text_field :country, placeholder: '日本', class: 'form-control', required: true %>
+              <% if @order.errors.include?(:country) %>
+                <div class="alert alert-danger mt-3">
+                  <ul class="mb-0">
+                    <% @order.errors.full_messages_for(:country).each do |message|  %>
+                      <li>
+                        <%= message %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
+            </div>
+            <div class="col-3">
+              <%= form.label :prefecture, "都道府県", class: 'form-label' %>
+              <%= form.text_field :prefecture, placeholder: '東京都', class: 'form-control', required: true %>
+              <% if @order.errors.include?(:prefecture) %>
+                <div class="alert alert-danger mt-3">
+                  <ul class="mb-0">
+                    <% @order.errors.full_messages_for(:prefecture).each do |message|  %>
+                      <li>
+                        <%= message %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
             </div>
             <div class="col-12">
-              <label for="address" class="form-label">住所</label>
-              <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
-              <div class="invalid-feedback">
-                Please enter your shipping address.
-              </div>
+              <%= form.label :address_one, "住所1", class: 'form-label' %>
+              <%= form.text_field :address_one, placeholder: '新宿西新宿', class: 'form-control', required: true %>
+              <% if @order.errors.include?(:address_one) %>
+                <div class="alert alert-danger mt-3">
+                  <ul class="mb-0">
+                    <% @order.errors.full_messages_for(:address_one).each do |message|  %>
+                      <li>
+                        <%= message %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
             </div>
             <div class="col-12">
-              <label for="address2" class="form-label">住所 2 <span class="text-body-secondary">(Optional)</span></label>
-              <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-            </div>
-            <div class="col-md-5">
-              <label for="country" class="form-label">Country</label>
-              <select class="form-select" id="country" required>
-                <option value="">Choose...</option>
-                <option>United States</option>
-              </select>
-              <div class="invalid-feedback">
-                Please select a valid country.
-              </div>
-            </div>
-            <div class="col-md-4">
-              <label for="state" class="form-label">State</label>
-              <select class="form-select" id="state" required>
-                <option value="">Choose...</option>
-                <option>California</option>
-              </select>
-              <div class="invalid-feedback">
-                Please provide a valid state.
-              </div>
-            </div>
-            <div class="col-md-3">
-              <label for="zip" class="form-label">Zip</label>
-              <input type="text" class="form-control" id="zip" placeholder="" required>
-              <div class="invalid-feedback">
-                Zip code required.
-              </div>
+              <%= form.label :address_two, "住所2", class: 'form-label' %>
+              <%= form.text_field :address_two, placeholder: '1-2-3', class: 'form-control', required: true %>
+              <% if @order.errors.include?(:address_two) %>
+                <div class="alert alert-danger mt-3">
+                  <ul class="mb-0">
+                    <% @order.errors.full_messages_for(:address_two).each do |message|  %>
+                      <li>
+                        <%= message %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
             </div>
           </div>
           <hr class="my-4">
-          <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="same-address">
-            <label class="form-check-label" for="same-address">Shipping address is the same as my billing address</label>
-          </div>
-          <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="save-info">
-            <label class="form-check-label" for="save-info">Save this information for next time</label>
-          </div>
-          <hr class="my-4">
-          <h4 class="mb-3">支払い方法</h4>
-          <div class="my-3">
-            <div class="form-check">
-              <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
-              <label class="form-check-label" for="credit">Credit card</label>
-            </div>
-            <div class="form-check">
-              <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
-              <label class="form-check-label" for="debit">Debit card</label>
-            </div>
-            <div class="form-check">
-              <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required>
-              <label class="form-check-label" for="paypal">PayPal</label>
-            </div>
-          </div>
+          <h4 class="mb-3">クレジットカード情報</h4>
           <div class="row gy-3">
             <div class="col-md-6">
-              <label for="cc-name" class="form-label">Name on card</label>
-              <input type="text" class="form-control" id="cc-name" placeholder="" required>
-              <small class="text-body-secondary">Full name as displayed on card</small>
-              <div class="invalid-feedback">
-                Name on card is required
-              </div>
+              <%= form.label :credit_name, "名義", class: 'form-label' %>
+              <%= form.text_field :credit_name, placeholder: 'TANAKA TARO', class: 'form-control', required: true %>
+              <% if @order.errors.include?(:credit_name) %>
+                <div class="alert alert-danger mt-3">
+                  <ul class="mb-0">
+                    <% @order.errors.full_messages_for(:credit_name).each do |message|  %>
+                      <li>
+                        <%= message %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
             </div>
             <div class="col-md-6">
-              <label for="cc-number" class="form-label">Credit card number</label>
-              <input type="text" class="form-control" id="cc-number" placeholder="" required>
-              <div class="invalid-feedback">
-                Credit card number is required
-              </div>
+              <%= form.label :credit_number, "カード番号", class: 'form-label' %>
+              <%= form.text_field :credit_number, placeholder: '0000-1111-2222-3333', class: 'form-control', required: true %>
+              <% if @order.errors.include?(:credit_number) %>
+                <div class="alert alert-danger mt-3">
+                  <ul class="mb-0">
+                    <% @order.errors.full_messages_for(:credit_number).each do |message|  %>
+                      <li>
+                        <%= message %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
             </div>
             <div class="col-md-3">
-              <label for="cc-expiration" class="form-label">Expiration</label>
-              <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-              <div class="invalid-feedback">
-                Expiration date required
-              </div>
+              <%= form.label :credit_expiration, "有効期限", class: 'form-label' %>
+              <%= form.text_field :credit_expiration, placeholder: '03/28', class: 'form-control', required: true %>
+              <% if @order.errors.include?(:credit_expiration) %>
+                <div class="alert alert-danger mt-3">
+                  <ul class="mb-0">
+                    <% @order.errors.full_messages_for(:credit_expiration).each do |message|  %>
+                      <li>
+                        <%= message %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
             </div>
             <div class="col-md-3">
-              <label for="cc-cvv" class="form-label">CVV</label>
-              <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-              <div class="invalid-feedback">
-                Security code required
-              </div>
+              <%= form.label :credit_cvv, "CVV", class: 'form-label' %>
+              <%= form.text_field :credit_cvv, placeholder: '012', class: 'form-control', required: true %>
+              <% if @order.errors.include?(:credit_cvv) %>
+                <div class="alert alert-danger mt-3">
+                  <ul class="mb-0">
+                    <% @order.errors.full_messages_for(:credit_cvv).each do |message|  %>
+                      <li>
+                        <%= message %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
             </div>
           </div>
           <hr class="my-4">
-          <button class="w-100 btn btn-primary btn-lg mb-5" type="submit">注文確定</button>
-        </form>
+          <%= form.submit '購入する', class: 'w-100 btn btn-primary btn-lg mb-5' %>
+        <% end %>
       </div>
     </div>
   </main>
