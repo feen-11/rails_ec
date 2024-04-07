@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_03_124243) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_07_060814) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -96,7 +96,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_03_124243) do
     t.text "description"
   end
 
+  create_table "promotions", force: :cascade do |t|
+    t.string "code", limit: 7, null: false
+    t.integer "discount_price", null: false
+    t.boolean "used", default: false, null: false
+    t.bigint "cart_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cart_id"], name: "index_promotions_on_cart_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "order_products", "orders"
+  add_foreign_key "promotions", "carts"
 end
