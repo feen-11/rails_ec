@@ -2,7 +2,8 @@
 
 class PromotionsController < ApplicationController
   def update
-    check_used_promotion and return if @current_cart.promotion
+    check_code_used_or_unused and return
+    # check_used_promotion and return if @current_cart.promotion
 
     promotion = Promotion.find_by(code: promotion_params[:code])
     if promotion.update(used: true, cart_id: @current_cart.id)
@@ -24,5 +25,11 @@ class PromotionsController < ApplicationController
       return true
     end
     false
+  end
+
+  def check_code_used_or_unused
+    code = Promotion.find_by(code: promotion_params[:code])
+    redirect_to cart_products_path, notice: 'このプロモーションコードは無効です。' if code.used
+    return true
   end
 end
