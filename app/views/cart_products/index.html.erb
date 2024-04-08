@@ -33,14 +33,14 @@
             <div class="text-success">
               <h6 class="my-0">プロモーションコード</h6>
             </div>
-            <span class="text-success">−0円</span>
+            <span class="text-success">−<%= @current_cart.promotion.discount_price%>円</span>
           </li>
           <li class="list-group-item d-flex justify-content-between">
             <span>合計</span>
-            <strong><%= @current_cart.cart_products.sum(:total_price) %>円</strong>
+            <strong><%= @current_cart.cart_products.sum(:total_price) - @current_cart.promotion.discount_price%>円</strong>
           </li>
         </ul>
-        <%= form_with url: promotion_path(@current_cart), method: :patch, class: 'card p-2' do | form | %>
+        <%= form_with url: promotion_path(@current_cart), method: :patch, scope: :promotion, class: 'card p-2' do | form | %>
           <div class="input-group">
             <%= form.text_field :code, class: 'form_control', placeholder: 'プロモーションコード' %>
             <%= form.submit '適用', class: 'btn btn-secondary' %>
