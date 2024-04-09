@@ -40,5 +40,17 @@
       <% end %>
     </tbody>
   </table>
-  <p class="text-end h4" >総額：<%= @order.order_products.sum(:total_price) %>円</p>
+  <div class="d-flex justify-content-end">
+    <% if @order.cart.promotion %>
+      <div>
+        <p class="h4" >■小計：<%= @order.order_products.sum(:total_price) %>円</p>
+        <p class="h4">■割引額：-<%= @order.cart.promotion.discount_price %>円</p>
+        <p class="h4">■総額：<%= [@order.order_products.sum(:total_price) - @order.cart.promotion.discount_price, 0].max %>円</p>
+      </div>
+    <% else %>
+      <div>
+        <p class="h4">■総額：<%= @order.order_products.sum(:total_price) %>円</p>
+      </div>
+    <% end %>
+  </div>
 </div>
