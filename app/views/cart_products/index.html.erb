@@ -29,16 +29,25 @@
               </li>
             <% end %>
           <% end %>
+          <% if @current_cart.promotion %>
           <li class="list-group-item d-flex justify-content-between bg-body-tertiary">
             <div class="text-success">
               <h6 class="my-0">プロモーションコード</h6>
             </div>
             <span class="text-success">−<%= @current_cart.promotion.discount_price%>円</span>
           </li>
+          <% end %>
+          <% if @current_cart.promotion %>
           <li class="list-group-item d-flex justify-content-between">
             <span>合計</span>
             <strong><%= @current_cart.cart_products.sum(:total_price) - @current_cart.promotion.discount_price%>円</strong>
           </li>
+          <% else %>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>合計</span>
+            <strong><%= @current_cart.cart_products.sum(:total_price) %>円</strong>
+          </li>
+          <% end %>
         </ul>
         <%= form_with url: promotion_path(@current_cart), method: :patch, scope: :promotion, class: 'card p-2' do | form | %>
           <div class="input-group">
