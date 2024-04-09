@@ -18,7 +18,7 @@ class PromotionsController < ApplicationController
   end
 
   def find_promotion
-    @find_promotion ||= Promotion.find_by(code: promotion_params[:code])
+    @promotion ||= Promotion.find_by(code: promotion_params[:code])
   end
 
   def redirect_if_promotion_unusable
