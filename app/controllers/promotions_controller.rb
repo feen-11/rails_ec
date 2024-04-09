@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
 class PromotionsController < ApplicationController
-  def update
-    redirect_if_cart_has_promotion and return if @current_cart.promotion
-    redirect_if_promotion_invalid and return
+  before_action :find_promotion, :redirect_if_promotion_unusable
 
-    promotion = Promotion.find_by(code: promotion_params[:code])
-    if promotion.update(used: true, cart_id: @current_cart.id)
+  def update
+    if @promotion.update(used: true, cart_id: @current_cart.id)
       redirect_to cart_products_path, notice: 'プロモーションコードを適用しました。'
     else
       render 'cart_products/index', status: :unprocessable_entity
@@ -19,20 +17,37 @@ class PromotionsController < ApplicationController
     params.require(:promotion).permit(:code)
   end
 
-  #  現在のカートでプロモーションコードが適用されているかチェック
-  def redirect_if_cart_has_promotion
-    if @current_cart.promotion
-      redirect_to cart_products_path, notice: 'プロモーションコードは既に適用されています。'
-    end
+  def find_promotion
+    @promotion ||= Promotion.find_by(code: promotion_params[:code])
   end
 
-  # 有効なプロモーションコードかチェック
-  def redirect_if_promotion_invalid
-    promotion = Promotion.find_by(code: promotion_params[:code])
-    if promotion.nil? || promotion.used
-      redirect_to cart_products_path, notice: 'このプロモーションコードは無効です。コードを確認して、もう一度お試しください。'
-      return true
-    end
-    false
+  # def redirect_if_cart_has_promotion
+  #   if @current_cart.promotion
+  #     redirect_to cart_products_path, notice: 'プロモーションコードは既に適用されています。'
+  #   end
+  # end
+
+  # def redirect_if_promotion_invalid
+  #   if @promotion.nil? || @promotion.used
+  #     redirect_to cart_products_path, notice: 'このプロモーションコードは無効です。コードを確認して、もう一度お試しください。'
+  #     return true
+  #   end
+  #   false
+  # end
+
+  def redirect_if_promotion_unusable
+    return unless promotion_unusable?
+
+    message = if @current_cart.promotion
+                'プロモーションコードは既に適用されています。'
+              else
+                'このプロモーションコードは無効です。コードを確認して、もう一度お試しください。'
+              end
+    redirect_to cart_products_path, notice: message
   end
+
+  def promotion_unusable?
+    @current_cart.promotion || @promotion.nil? || @promotion.used
+  end
+
 end
