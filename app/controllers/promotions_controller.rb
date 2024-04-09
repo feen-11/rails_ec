@@ -18,22 +18,8 @@ class PromotionsController < ApplicationController
   end
 
   def find_promotion
-    @promotion ||= Promotion.find_by(code: promotion_params[:code])
+    @find_promotion ||= Promotion.find_by(code: promotion_params[:code])
   end
-
-  # def redirect_if_cart_has_promotion
-  #   if @current_cart.promotion
-  #     redirect_to cart_products_path, notice: 'プロモーションコードは既に適用されています。'
-  #   end
-  # end
-
-  # def redirect_if_promotion_invalid
-  #   if @promotion.nil? || @promotion.used
-  #     redirect_to cart_products_path, notice: 'このプロモーションコードは無効です。コードを確認して、もう一度お試しください。'
-  #     return true
-  #   end
-  #   false
-  # end
 
   def redirect_if_promotion_unusable
     return unless promotion_unusable?
@@ -49,5 +35,4 @@ class PromotionsController < ApplicationController
   def promotion_unusable?
     @current_cart.promotion || @promotion.nil? || @promotion.used
   end
-
 end
