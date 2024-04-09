@@ -40,7 +40,7 @@
           <% if @current_cart.promotion %>
           <li class="list-group-item d-flex justify-content-between">
             <span>合計</span>
-            <strong><%= @current_cart.cart_products.sum(:total_price) - @current_cart.promotion.discount_price%>円</strong>
+            <strong><%= [@current_cart.cart_products.sum(:total_price) - @current_cart.promotion.discount_price, 0].max %>円</strong>
           </li>
           <% else %>
           <li class="list-group-item d-flex justify-content-between">
