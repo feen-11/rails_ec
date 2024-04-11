@@ -4,7 +4,7 @@ class PromotionsController < ApplicationController
   before_action :find_promotion, :redirect_if_promotion_unusable
 
   def update
-    if @promotion.update(used: true, cart_id: @current_cart.id)
+    if @find_promotion.update(used: true, cart_id: @current_cart.id)
       redirect_to cart_products_path, notice: 'プロモーションコードを適用しました。'
     else
       render 'cart_products/index', status: :unprocessable_entity
@@ -33,6 +33,6 @@ class PromotionsController < ApplicationController
   end
 
   def promotion_unusable?
-    @current_cart.promotion || @promotion.nil? || @promotion.used
+    @current_cart.promotion || @find_promotion.nil? || @find_promotion.used
   end
 end
