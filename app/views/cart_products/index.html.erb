@@ -29,7 +29,7 @@
               </li>
             <% end %>
           <% end %>
-          <% if @current_cart.promotion %>
+          <% if @discounted_price %>
             <li class="list-group-item d-flex justify-content-between bg-body-tertiary">
               <div class="text-success">
                 <h6 class="my-0">プロモーションコード</h6>
@@ -37,10 +37,10 @@
               <span class="text-success">−<%= @current_cart.promotion.discount_price%>円</span>
             </li>
           <% end %>
-          <% if @current_cart.promotion %>
+          <% if @discounted_price %>
             <li class="list-group-item d-flex justify-content-between">
               <span>合計</span>
-              <strong><%= [@current_cart.cart_products.sum(:total_price) - @current_cart.promotion.discount_price, 0].max %>円</strong>
+              <strong><%= @discounted_price %>円</strong>
             </li>
           <% else %>
             <li class="list-group-item d-flex justify-content-between">
