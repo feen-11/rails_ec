@@ -5,9 +5,10 @@ class CartProductsController < ApplicationController
 
   def index
     @order = Order.new
-    if @current_cart.promotion
-      @discounted_price = [@current_cart.cart_products.sum(:total_price) - @current_cart.promotion.discount_price, 0].max
-    end
+    return unless @current_cart.promotion
+
+    @discounted_price = [@current_cart.cart_products.sum(:total_price) - @current_cart.promotion.discount_price,
+                         0].max
   end
 
   def create
