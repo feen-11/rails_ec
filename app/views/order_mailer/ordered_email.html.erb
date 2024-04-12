@@ -17,7 +17,12 @@
         <li>合計価格：<%= order_product.total_price %>円</li>
       </ul>
     <% end %>
-    <p>■総額：<%= @order.order_products.sum(:total_price) %>円</p>
+    <% if @order.cart.promotion %>
+      <p>■割引額：-<%= @order.cart.promotion.discount_price %></p>
+      <p>■総額：<%= [@order.order_products.sum(:total_price) - @order.cart.promotion.discount_price, 0].max %>円</p>
+    <% else %>
+      <p>■総額：<%= @order.order_products.sum(:total_price) %>円</p>
+    <% end %>
     <p>またのご利用、心よりお待ちしております。</p>
   </body>
 </html>

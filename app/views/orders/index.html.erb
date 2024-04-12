@@ -22,7 +22,11 @@
         <tr>
           <td style="vertical-align: middle;"><%= order.id %></td>
           <td style="vertical-align: middle;"><%= order.last_name %><%= order.first_name %></td>
-          <td style="vertical-align: middle;"><%= order.order_products.sum(:total_price) %></td>
+          <% if order.cart.promotion %>
+            <td style="vertical-align: middle;"><%= [order.order_products.sum(:total_price) - order.cart.promotion.discount_price, 0].max %></td>
+          <% else %>
+            <td style="vertical-align: middle;"><%= order.order_products.sum(:total_price) %></td>
+          <% end %>
           <td style="vertical-align: middle;"><%= order.created_at.strftime('%Y年%m月%d日 %H:%M') %></td>
           <td style="vertical-align: middle;"><%= link_to '詳細', cart_order_path(order.cart, order), class: 'btn btn-outline-dark' %></td>
         </tr>
